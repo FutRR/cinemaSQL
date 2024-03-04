@@ -54,3 +54,36 @@ SELECT CONCAT(prenom, " ", nom) AS personne
 FROM personne
 INNER JOIN acteur ON personne.id_personne = acteur.id_personne
 INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+
+
+-- i. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)
+
+SELECT titre, sortieFr
+FROM film
+WHERE sortieFr > YEAR(CURDATE()) - 5
+ORDER BY sortieFr DESC
+
+-- j. Nombre d’hommes et de femmes parmi les acteurs
+
+SELECT sexe, COUNT(acteur.id_personne) AS acteurs
+FROM personne
+INNER JOIN acteur ON personne.id_personne = acteur.id_personne
+WHERE sexe = 'M' OR  sexe = 'F'
+GROUP BY sexe
+
+-- k. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)
+
+SELECT CONCAT(prenom, " ", nom) AS acteurs, TIMESTAMPDIFF(YEAR, dateNaissance, CURDATE()) AS age
+FROM acteur
+INNER JOIN personne ON acteur.id_personne = personne.id_personne
+WHERE TIMESTAMPDIFF(YEAR, dateNaissance, CURDATE()) > 50
+
+-- l. Acteurs ayant joué dans 3 films ou plus
+
+SELECT CONCAT(prenom, " ", nom) AS acteurs, COUNT(casting.id_film) AS nbFilms
+FROM film
+INNER JOIN casting ON film.id_film = casting.id_film
+INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
+INNER JOIN personne ON acteur.id_personne = personne.id_personne
+GROUP BY casting.id_acteur
+HAVING COUNT(casting.id_film) >= 3
