@@ -11,6 +11,7 @@ ob_start();
                 <?= $acteur["nom"] ?>
             </h3>
             <p>
+                <?php ?>
             </p>
         </div>
     </div>

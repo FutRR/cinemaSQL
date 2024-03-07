@@ -19,10 +19,11 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $query = $pdo->query("
-        SELECT * 
+        SELECT nom, prenom, image, CONCAT(film.id_film, '=>', titre) AS filmList
         FROM personne
         INNER JOIN acteur ON personne.id_personne = acteur.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
+        INNER JOIN film ON casting.id_film = film.id_film
         ");
         require "view/listActeurs.php";
 
