@@ -11,13 +11,10 @@ ob_start();
                 <?= $acteur["nom"] ?>
             </h3>
             <p>
-                <?php foreach ($query2->fetchAll() as $film) {
-                    echo $film["titre"];
-                } ?>
             </p>
         </div>
     </div>
-    <?php die;
+    <?php
 }
 
 $titre = "Liste des acteurs";

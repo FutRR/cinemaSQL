@@ -23,7 +23,6 @@ class CinemaController
         FROM personne
         INNER JOIN acteur ON personne.id_personne = acteur.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
-         
         ");
         require "view/listActeurs.php";
 
