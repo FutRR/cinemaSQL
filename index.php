@@ -21,6 +21,5 @@ if (isset($_GET["action"])) {
 
         default:
             $ctrlCinema->listFilms();
-            break;
     }
 }
