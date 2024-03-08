@@ -4,7 +4,7 @@ ob_start();
 
 <?php foreach ($listActeurs->fetchAll() as $acteur) { ?>
     <div class="list_wrapper">
-        <img class="img_list" src="<?= $acteur["image"] ?>" alt="photo">
+        <img class="list_img" src="<?= $acteur["image"] ?>" alt="photo">
         <div class="list_infos">
             <h3>
                 <?= $acteur["personne"] ?>

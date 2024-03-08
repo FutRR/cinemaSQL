@@ -30,4 +30,23 @@ class CinemaController
 
         require "view/listActeurs.php";
     }
+
+    public function listGenres()
+    {
+        $pdo = Connect::seConnecter();
+        $listGenres = $pdo->query("SELECT * FROM genre");
+
+        require "view/listGenres.php";
+    }
+
+    public function listRealisateurs()
+    {
+        $pdo = Connect::seConnecter();
+        $listRealisateurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne
+        FROM personne
+        INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        ");
+
+        require "view/listRealisateurs.php";
+    }
 }

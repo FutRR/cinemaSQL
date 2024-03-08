@@ -30,18 +30,19 @@ nav ul{
     z-index: 99;
     height: fit-content;
     margin-top: -500px;
-    transition: 500ms;
+    transition: 400ms;
 
 }
 
 .mobile-menu{
-    margin-top: 0;
+    margin-top: 16px;
 }
 
 
 nav ul li{
     display: inline-block;
     list-style-type: none;
+    margin: 0 5px;
 }
 
 .nav_links{
@@ -114,7 +115,19 @@ nav ul li{
     flex-direction: column;
 }
 
-.img_list{
+.list_img{
     width: 150px;
     padding: 20px;
+}
+
+.list_genre_wrapper{
+    display: flex;
+    background-color: #101C28;
+    margin: 20px;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.list_genre_infos{
+    margin: 10px;
 }

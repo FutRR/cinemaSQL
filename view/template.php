@@ -7,7 +7,7 @@
     <title>
         <?= $titre ?>
     </title>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -18,9 +18,9 @@
         <ul>
             <li><a href="index.php?action=" class="nav_links nav_link1">Accueil</a></li>
             <li><a href="index.php?action=listFilms" class="nav_links nav_link2">Films</a></li>
-            <li><a href="#" class="nav_links nav_link3">Genres</a></li>
+            <li><a href="index.php?action=listGenres" class="nav_links nav_link3">Genres</a></li>
             <li><a href="index.php?action=listActeurs" class="nav_links nav_link4">Acteurs</a></li>
-            <li><a href="#" class="nav_links nav_link5">Réalisateurs</a></li>
+            <li><a href="index.php?action=listRealisateurs" class="nav_links nav_link5">Réalisateurs</a></li>
         </ul>
 
         <div class="menuburger" onclick="menuChange(this)">

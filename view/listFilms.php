@@ -4,7 +4,7 @@ ob_start();
 
 <?php foreach ($listFilms->fetchAll() as $film) { ?>
     <div class="list_wrapper">
-        <img class="img_list" src="<?= $film["affiche"] ?>" alt="affiche">
+        <img class="list_img" src="<?= $film["affiche"] ?>" alt="affiche">
         <div class="list_infos">
             <h3>
                 <?= $film["titre"] ?>
