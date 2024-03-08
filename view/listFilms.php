@@ -2,7 +2,7 @@
 ob_start();
 ?>
 
-<?php foreach ($query->fetchAll() as $film) { ?>
+<?php foreach ($listFilms->fetchAll() as $film) { ?>
     <div class="film_wrapper">
         <img class="img_list" src="<?= $film["affiche"] ?>" alt="affiche">
         <div class="list_infos">

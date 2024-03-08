@@ -2,16 +2,17 @@
 ob_start();
 ?>
 
-<?php foreach ($query->fetchAll() as $acteur) { ?>
+<?php foreach ($listActeurs->fetchAll() as $acteur) { ?>
     <div class="list_wrapper">
         <img class="img_list" src="<?= $acteur["image"] ?>" alt="photo">
         <div class="list_infos">
             <h3>
-                <?= $acteur["prenom"] ?>
-                <?= $acteur["nom"] ?>
+                <?= $acteur["personne"] ?>
             </h3>
             <p>
-                <?php ?>
+                <?php foreach ($filmsParActeurs->fetchAll() as $films) {
+                    echo $films["titre"];
+                } ?>
             </p>
         </div>
     </div>
