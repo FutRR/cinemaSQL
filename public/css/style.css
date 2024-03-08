@@ -2,6 +2,7 @@
 
 *{
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 body{
@@ -14,6 +15,12 @@ body{
 
 main{
     margin: 0 150px;
+}
+
+.waves{
+    stroke: transparent;
+    stroke-width: 0%;
+    outline: 0;
 }
 
 .list_wrapper{

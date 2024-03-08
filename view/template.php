@@ -12,12 +12,14 @@
 
 <body>
 
+    <img class="waves top_waves" src="./public/img/topWaves.svg" alt="">
     <main>
         <h2>
             <?= $titre_secondaire ?>
         </h2>
         <?= $content ?>
     </main>
+    <img class="waves top_waves" src="./public/img/bottomWaves.svg" alt="">
 
 </body>
 
