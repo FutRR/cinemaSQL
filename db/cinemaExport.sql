@@ -92,11 +92,11 @@ REPLACE INTO `classer` (`id_film`, `id_genre`) VALUES
 -- Listage de la structure de table cinema_maximefutterer. film
 CREATE TABLE IF NOT EXISTS `film` (
   `id_film` int NOT NULL AUTO_INCREMENT,
-  `titre` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `sortieFr` int NOT NULL,
   `duree` int NOT NULL,
   `note` float NOT NULL DEFAULT '0',
-  `synopsis` text COLLATE utf8mb4_bin,
+  `synopsis` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `affiche` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `id_realisateur` int NOT NULL,
   PRIMARY KEY (`id_film`),
@@ -106,17 +106,17 @@ CREATE TABLE IF NOT EXISTS `film` (
 
 -- Listage des données de la table cinema_maximefutterer.film : ~6 rows (environ)
 REPLACE INTO `film` (`id_film`, `titre`, `sortieFr`, `duree`, `note`, `synopsis`, `affiche`, `id_realisateur`) VALUES
-	(1, 'Star Wars : Episode IV, A New Hope', 1977, 121, 9, NULL, NULL, 1),
-	(2, 'Pulp Fiction', 1994, 154, 9, NULL, NULL, 2),
-	(3, 'Kill Bill: Volume 1', 2003, 111, 8, NULL, NULL, 2),
-	(4, 'Oppenheimer', 2023, 181, 9, NULL, NULL, 3),
-	(5, 'Django Unchained', 2012, 165, 9, NULL, NULL, 2),
-	(6, 'Les Huits Salopards', 2015, 187, 8, NULL, NULL, 2);
+	(1, 'Star Wars : Episode IV, A New Hope', 1977, 121, 9, NULL, 'https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_.jpg', 1),
+	(2, 'Pulp Fiction', 1994, 154, 9, NULL, 'https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 2),
+	(3, 'Kill Bill: Volume 1', 2003, 111, 8, NULL, 'https://m.media-amazon.com/images/M/MV5BNzM3NDFhYTAtYmU5Mi00NGRmLTljYjgtMDkyODQ4MjNkMGY2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg', 2),
+	(4, 'Oppenheimer', 2023, 181, 9, NULL, 'https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg', 3),
+	(5, 'Django Unchained', 2012, 165, 9, NULL, 'https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_.jpg', 2),
+	(6, 'Les Huits Salopards', 2015, 187, 8, NULL, 'https://m.media-amazon.com/images/M/MV5BMjA1MTc1NTg5NV5BMl5BanBnXkFtZTgwOTM2MDEzNzE@._V1_.jpg', 2);
 
 -- Listage de la structure de table cinema_maximefutterer. genre
 CREATE TABLE IF NOT EXISTS `genre` (
   `id_genre` int NOT NULL AUTO_INCREMENT,
-  `nomGenre` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `nomGenre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_genre`),
   UNIQUE KEY `nomGenre` (`nomGenre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -132,27 +132,29 @@ REPLACE INTO `genre` (`id_genre`, `nomGenre`) VALUES
 -- Listage de la structure de table cinema_maximefutterer. personne
 CREATE TABLE IF NOT EXISTS `personne` (
   `id_personne` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `prenom` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `prenom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `dateNaissance` date NOT NULL,
-  `sexe` varchar(1) COLLATE utf8mb4_bin NOT NULL,
+  `sexe` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `biographie` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_personne`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Listage des données de la table cinema_maximefutterer.personne : ~12 rows (environ)
-REPLACE INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `sexe`) VALUES
-	(1, 'Lucas', 'George', '1944-05-14', 'M'),
-	(2, 'Hamill', 'Mark', '1951-09-25', 'M'),
-	(3, 'Ford', 'Harrison', '1942-07-13', 'M'),
-	(4, 'Fisher', 'Carrie', '1956-10-21', 'F'),
-	(5, 'Tarantino', 'Quentin', '1963-03-27', 'M'),
-	(6, 'Travolta', 'John', '1954-02-18', 'M'),
-	(7, 'Jackson', 'Samuel L.', '1948-12-21', 'M'),
-	(8, 'Thurman', 'Uma', '1970-04-29', 'F'),
-	(9, 'Liu', 'Lucy', '1968-12-02', 'F'),
-	(10, 'Nolan', 'Christopher', '1970-07-30', 'M'),
-	(11, 'Murphy', 'Cillian', '1976-05-25', 'M'),
-	(12, 'Waltz', 'Christoph', '1956-10-04', 'M');
+REPLACE INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `sexe`, `biographie`, `image`) VALUES
+	(1, 'Lucas', 'George', '1944-05-14', 'M', NULL, 'https://fr.web.img6.acsta.net/pictures/15/12/18/10/51/568937.jpg'),
+	(2, 'Hamill', 'Mark', '1951-09-25', 'M', NULL, 'https://fr.web.img6.acsta.net/pictures/19/06/20/12/55/1998268.jpg'),
+	(3, 'Ford', 'Harrison', '1942-07-13', 'M', NULL, 'https://m.media-amazon.com/images/M/MV5BMTY4Mjg0NjIxOV5BMl5BanBnXkFtZTcwMTM2NTI3MQ@@._V1_.jpg'),
+	(4, 'Fisher', 'Carrie', '1956-10-21', 'F', NULL, 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Carrie_Fisher_2013.jpg/1200px-Carrie_Fisher_2013.jpg'),
+	(5, 'Tarantino', 'Quentin', '1963-03-27', 'M', NULL, 'https://fr.web.img3.acsta.net/pictures/19/05/22/10/33/5945451.jpg'),
+	(6, 'Travolta', 'John', '1954-02-18', 'M', NULL, 'https://m.media-amazon.com/images/M/MV5BMTMyMjZlYzgtZWRjMC00OTRmLTllZTktMmM1ODVmNjljMTQyXkEyXkFqcGdeQXVyMTExNzQ3MzAw._V1_.jpg'),
+	(7, 'Jackson', 'Samuel L.', '1948-12-21', 'M', NULL, 'https://fr.web.img5.acsta.net/pictures/15/07/27/12/24/354255.jpg'),
+	(8, 'Thurman', 'Uma', '1970-04-29', 'F', NULL, 'https://m.media-amazon.com/images/M/MV5BMjMxNzk1MTQyMl5BMl5BanBnXkFtZTgwMDIzMDEyMTE@._V1_.jpg'),
+	(9, 'Liu', 'Lucy', '1968-12-02', 'F', NULL, 'https://m.media-amazon.com/images/M/MV5BOTgxODE0MjI5Ml5BMl5BanBnXkFtZTcwMjkxMzMzMg@@._V1_FMjpg_UX1000_.jpg'),
+	(10, 'Nolan', 'Christopher', '1970-07-30', 'M', NULL, 'https://m.media-amazon.com/images/M/MV5BNjE3NDQyOTYyMV5BMl5BanBnXkFtZTcwODcyODU2Mw@@._V1_FMjpg_UX1000_.jpg'),
+	(11, 'Murphy', 'Cillian', '1976-05-25', 'M', NULL, 'https://m.media-amazon.com/images/M/MV5BMDUxY2M1NTQtNzcwNC00ZDljLTk4YjctYzJjZGNiYTc0YTE1XkEyXkFqcGdeQXVyMTY5MDA5MDc3._V1_.jpg'),
+	(12, 'Waltz', 'Christoph', '1956-10-04', 'M', NULL, 'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/171314_v9_bb.jpg');
 
 -- Listage de la structure de table cinema_maximefutterer. realisateur
 CREATE TABLE IF NOT EXISTS `realisateur` (
@@ -163,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `realisateur` (
   CONSTRAINT `realisateur_ibfk_1` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table cinema_maximefutterer.realisateur : ~3 rows (environ)
+-- Listage des données de la table cinema_maximefutterer.realisateur : ~0 rows (environ)
 REPLACE INTO `realisateur` (`id_realisateur`, `id_personne`) VALUES
 	(1, 1),
 	(2, 5),
@@ -172,12 +174,12 @@ REPLACE INTO `realisateur` (`id_realisateur`, `id_personne`) VALUES
 -- Listage de la structure de table cinema_maximefutterer. role
 CREATE TABLE IF NOT EXISTS `role` (
   `id_role` int NOT NULL AUTO_INCREMENT,
-  `nomRole` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `nomRole` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id_role`),
   UNIQUE KEY `nomRole` (`nomRole`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table cinema_maximefutterer.role : ~13 rows (environ)
+-- Listage des données de la table cinema_maximefutterer.role : ~0 rows (environ)
 REPLACE INTO `role` (`id_role`, `nomRole`) VALUES
 	(7, 'Beatrix Kiddo'),
 	(11, 'Dr King Schultz'),
