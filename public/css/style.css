@@ -6,6 +6,13 @@
     vertical-align: top;
 }
 
+
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
 body{
     margin: 0;
     background-color: #05090D;
@@ -48,7 +55,6 @@ nav ul li{
 
 .nav_links{
     text-decoration: none;
-    color: #fff;
     font-size: 32px;
 }
 
@@ -133,7 +139,85 @@ nav ul li{
     margin: 10px;
 }
 
-.list_links{
-    color: #fff;
-    text-decoration: none;
+/* Details */
+
+.details_wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+
+}
+
+.film_infos{
+    display: flex;
+    background-color: #101C28;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.film_img{
+    width: 150px;
+    padding: 20px;
+}
+
+
+.note{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.note i{
+    margin-right: 5px;
+}
+
+.note span{
+    margin-right: 10px;
+}
+
+.note span{
+    font-weight: 700;
+}
+
+.synopsis{
+    display: flex;
+    flex-direction: column;
+    background-color: #101C28;
+    border-radius: 15px;
+    margin: 10 50px;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.synopsis h4{
+    margin: 5px;
+}
+
+.acteurs_wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.acteurs{
+    display: flex;
+    justify-content: center;
+}
+
+.acteur{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #101C28;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    width: 185px;
+
+}
+
+.acteur img{
+    width: 100px;
 }

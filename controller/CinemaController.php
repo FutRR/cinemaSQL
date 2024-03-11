@@ -51,4 +51,30 @@ class CinemaController
 
         require "view/listRealisateurs.php";
     }
+
+    //Détails d'un film//
+    public function filmDetails()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_GET["id"])) {
+            $index = $_GET["id"];
+            $filmDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+            FROM film
+            INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
+            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+            WHERE id_film = :id_film");
+            $filmDetails->execute(["id_film" => $index]);
+
+            $acteurs = $pdo->prepare("SELECT image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
+            FROM casting
+            INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
+            INNER JOIN film ON casting.id_film = film.id_film
+            INNER JOIN role ON casting.id_role = role.id_role
+            WHERE casting.id_film = :id_film");
+            $acteurs->execute(["id_film" => $index]);
+
+            require "view/filmDetails.php";
+        }
+    }
 }

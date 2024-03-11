@@ -16,7 +16,7 @@ ob_start();
 
                 $results = array_combine($keys, $vals);
                 foreach ($results as $id => $film) {
-                    echo "<a class='list_links' href='index.php?action=infosFilm&id={$id}'> $film <br></a>";
+                    echo "<a class='list_links' href='index.php?action=filmDetails&id={$id}'> $film <br></a>";
                 } ?>
             </p>
         </div>

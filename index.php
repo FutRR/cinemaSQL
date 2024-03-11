@@ -26,6 +26,11 @@ if (isset($_GET["action"])) {
         case "listGenres":
             $ctrlCinema->listGenres();
             break;
+
+        case "filmDetails":
+            $ctrlCinema->filmDetails();
+            break;
+
         default:
             $ctrlCinema->listFilms();
     }
