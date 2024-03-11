@@ -11,10 +11,14 @@
 </head>
 
 <body>
-    <img class="waves top_waves" src="./public/img/topWaves.svg" alt="background waves">
+
+    <img class="waves top_waves" src="public/img/topWaves.svg" alt="background waves">
 
     <nav>
-        <img class="logo" src="./public/img/logo.png" alt="logo">
+        <a href="index.php?action=">
+            <img class="logo" src="public/img/logo.png" alt="logo">
+        </a>
+
         <ul>
             <li><a href="index.php?action=" class="nav_links nav_link1">Accueil</a></li>
             <li><a href="index.php?action=listFilms" class="nav_links nav_link2">Films</a></li>

@@ -18,7 +18,7 @@ class CinemaController
     public function listActeurs()
     {
         $pdo = Connect::seConnecter();
-        $listActeurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
+        $listActeurs = $pdo->query("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
         FROM personne
         INNER JOIN acteur ON personne.id_personne = acteur.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
@@ -65,7 +65,7 @@ class CinemaController
             WHERE id_film = :id_film");
             $filmDetails->execute(["id_film" => $index]);
 
-            $acteurs = $pdo->prepare("SELECT image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
+            $acteurs = $pdo->prepare("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
             FROM casting
             INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
@@ -75,6 +75,31 @@ class CinemaController
             $acteurs->execute(["id_film" => $index]);
 
             require "view/filmDetails.php";
+        }
+    }
+
+    //Détails d'un acteur//
+    public function acteurDetails()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_GET["id"])) {
+            $index = $_GET["id"];
+            $acteurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+            FROM personne
+            WHERE id_personne = :id_personne");
+            $acteurDetails->execute(["id_personne" => $index]);
+
+            $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche, role.id_role, role.nomRole
+            FROM film
+            INNER JOIN casting ON film.id_film = casting.id_film
+            INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
+            INNER JOIN role ON casting.id_role = role.id_role
+            WHERE personne.id_personne = :id_personne");
+            $films->execute(["id_personne" => $index]);
+
+
+            require "view/acteurDetails.php";
         }
     }
 }

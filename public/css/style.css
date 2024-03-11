@@ -10,6 +10,7 @@
 a{
     color: #fff;
     text-decoration: none;
+    z-index: 1;
 }
 
 
@@ -65,7 +66,6 @@ nav ul li{
 }
 
 .logo{
-    z-index: 99;
     margin-top: 16px;
     width: 150px;
     height: 150px;
@@ -148,18 +148,17 @@ nav ul li{
 
 }
 
-.film_infos{
+.details_infos{
     display: flex;
     background-color: #101C28;
     border-radius: 15px;
     margin: 10px;
 }
 
-.film_img{
+.details_img{
     width: 150px;
     padding: 20px;
 }
-
 
 .note{
     display: flex;
@@ -179,7 +178,7 @@ nav ul li{
     font-weight: 700;
 }
 
-.synopsis{
+.details_txt{
     display: flex;
     flex-direction: column;
     background-color: #101C28;
@@ -187,9 +186,10 @@ nav ul li{
     margin: 10 50px;
     padding: 20px;
     line-height: 1.5;
+    text-transform: none;
 }
 
-.synopsis h4{
+.details_txt h4{
     margin: 5px;
 }
 
@@ -213,11 +213,42 @@ nav ul li{
     background-color: #101C28;
     border-radius: 15px;
     margin: 10px;
-    padding: 10px;
-    width: 185px;
+    padding: 20px;
+    width: fit-content;
+    min-width: 185px;
 
 }
 
 .acteur img{
+    width: 100px;
+}
+
+.films_wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.films{
+    display: flex;
+    justify-content: center;
+}
+
+.film{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #101C28;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 20px;
+    width: fit-content;
+    min-width: 185px;
+
+}
+
+.film img{
     width: 100px;
 }

@@ -6,10 +6,10 @@ ob_start();
 <div class="details_wrapper">
 
 
-    <div class="film_infos">
-        <img class="film_img" src="<?= $film["affiche"] ?>" alt="affiche film">
+    <div class="details_infos">
+        <img class="details_img" src="<?= $film["affiche"] ?>" alt="affiche film">
 
-        <div class="film_txt">
+        <div>
             <h3>
                 <?= $film["titre"] ?>
             </h3>
@@ -29,7 +29,7 @@ ob_start();
         </div>
     </div>
 
-    <div class="synopsis">
+    <div class="details_txt">
         <h4>Synopsis :</h4>
         <p>
             <?= $film["synopsis"] ?>
@@ -40,15 +40,17 @@ ob_start();
         <h4>Casting :</h4>
         <div class="acteurs">
             <?php foreach ($acteurs->fetchAll() as $acteur) { ?>
-                <div class="acteur">
-                    <img src="<?= $acteur['image'] ?>" alt="">
-                    <p>
-                        <?= $acteur["personne"] ?>
-                    </p>
-                    <p>
-                        <?= $acteur["nomRole"] ?>
-                    </p>
-                </div>
+                <a href="index.php?action=acteurDetails&id=<?= $acteur["id_personne"] ?>">
+                    <div class="acteur">
+                        <img src="<?= $acteur['image'] ?>" alt="">
+                        <p>
+                            <?= $acteur["personne"] ?>
+                        </p>
+                        <p>
+                            <?= $acteur["nomRole"] ?>
+                        </p>
+                    </div>
+                </a>
             <?php } ?>
         </div>
     </div>
