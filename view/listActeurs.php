@@ -10,8 +10,13 @@ ob_start();
                 <?= $acteur["personne"] ?>
             </h3>
             <p>
-                <?php foreach ($filmsParActeurs->fetchAll() as $films) {
-                    echo $films["titre"];
+                <?php
+                $keys = explode('idEnd', $acteur['idFilms']);
+                $vals = explode('titreEnd', $acteur['titreFilms']);
+
+                $results = array_combine($keys, $vals);
+                foreach ($results as $id => $film) {
+                    echo "<a class='list_links' href='index.php?action=infosFilm&id={$id}'> $film <br></a>";
                 } ?>
             </p>
         </div>

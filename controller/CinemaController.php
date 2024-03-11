@@ -18,19 +18,18 @@ class CinemaController
     public function listActeurs()
     {
         $pdo = Connect::seConnecter();
-        $listActeurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne
+        $listActeurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
         FROM personne
         INNER JOIN acteur ON personne.id_personne = acteur.id_personne
-        ");
-
-        $filmsParActeurs = $pdo->query("SELECT film.id_film, titre 
-        FROM film
-        INNER JOIN casting ON film.id_film = casting.id_film
+        INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
+        INNER JOIN film ON casting.id_film = film.id_film
+        GROUP BY acteur.id_acteur
         ");
 
         require "view/listActeurs.php";
     }
 
+    //Lister des genres//
     public function listGenres()
     {
         $pdo = Connect::seConnecter();
@@ -39,12 +38,15 @@ class CinemaController
         require "view/listGenres.php";
     }
 
+    //Lister des Réalisateurs//
     public function listRealisateurs()
     {
         $pdo = Connect::seConnecter();
-        $listRealisateurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne
+        $listRealisateurs = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
         FROM personne
         INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        INNER JOIN film ON realisateur.id_realisateur = film.id_realisateur
+        GROUP BY realisateur.id_realisateur
         ");
 
         require "view/listRealisateurs.php";

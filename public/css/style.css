@@ -3,6 +3,7 @@
 *{
     box-sizing: border-box;
     overflow-x: hidden;
+    vertical-align: top;
 }
 
 body{
@@ -130,4 +131,9 @@ nav ul li{
 
 .list_genre_infos{
     margin: 10px;
+}
+
+.list_links{
+    color: #fff;
+    text-decoration: none;
 }
