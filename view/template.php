@@ -41,7 +41,7 @@
         </h2>
         <?= $content ?>
     </main>
-    <img class="waves bottom_waves" src="./public/img/bottomWaves.svg" alt="">
+    <img class="waves bottom_waves" src="public/img/bottomWaves.svg" alt="">
 
     <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
     <script src="./public/js/script.js"></script>
