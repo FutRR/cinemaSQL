@@ -35,6 +35,11 @@ if (isset($_GET["action"])) {
             $ctrlCinema->acteurDetails();
             break;
 
+        case "realisateurDetails":
+            $ctrlCinema->realisateurDetails();
+            break;
+
+
         default:
             $ctrlCinema->listFilms();
     }

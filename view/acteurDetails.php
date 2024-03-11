@@ -30,7 +30,7 @@ ob_start();
     </div>
 
     <div class="films_wrap">
-        <h4>Casting :</h4>
+        <h4>Filmographie :</h4>
         <div class="films">
             <?php foreach ($films->fetchAll() as $film) { ?>
                 <a href="index.php?action=filmDetails&id=<?= $film["id_film"] ?>">

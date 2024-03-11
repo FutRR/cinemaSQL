@@ -23,9 +23,11 @@ ob_start();
                     <?= $film["note"] ?>
                 </span> / 10
             </p>
-            <p>
-                <?= $film["personne"] ?>
-            </p>
+            <a href="index.php?action=realisateurDetails&id=<?= $film["id_personne"] ?>">
+                <p>
+                    <?= $film["personne"] ?>
+                </p>
+            </a>
         </div>
     </div>
 
