@@ -7,7 +7,7 @@ ob_start();
 <div class="details_wrapper">
 
     <div class="details_infos">
-        <img class="details_img" src="<?= $realisateur["image"] ?>" alt="image realisateur">
+        <img class="details_img" src="upload/personne/<?= $realisateur["image"] ?>" alt="image realisateur">
 
         <div>
             <h3>
@@ -35,7 +35,7 @@ ob_start();
             <?php foreach ($films->fetchAll() as $film) { ?>
                 <a href="index.php?action=filmDetails&id=<?= $film["id_film"] ?>">
                     <div class="film">
-                        <img src="<?= $film['affiche'] ?>" alt="">
+                        <img src="upload/film/<?= $film['affiche'] ?>" alt="">
                         <p>
                             <?= $film["titre"] ?>
                         </p>
@@ -50,7 +50,7 @@ ob_start();
 
 <?php
 $titre = $realisateur["personne"];
-$titre_secondaire = $realisateur["personne"];
+$titre_secondaire = "{$realisateur['personne']} | Realisateur";
 $content = ob_get_clean();
 require "view/template.php";
 ?>

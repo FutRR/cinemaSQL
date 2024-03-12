@@ -39,9 +39,9 @@ ob_start();
     </p>
 
     <p>
-        <label for="file">
+        <label>
             Image :
-            <input id="file" type="file" name="image">
+            <input type="file" name="file">
         </label>
     </p>
 

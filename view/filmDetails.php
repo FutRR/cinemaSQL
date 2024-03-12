@@ -7,7 +7,7 @@ ob_start();
 
 
     <div class="details_infos">
-        <img class="details_img" src="<?= $film["affiche"] ?>" alt="affiche film">
+        <img class="details_img" src="upload/film/<?= $film["affiche"] ?>" alt="affiche film">
 
         <div>
             <h3>
@@ -44,7 +44,7 @@ ob_start();
             <?php foreach ($acteurs->fetchAll() as $acteur) { ?>
                 <a href="index.php?action=acteurDetails&id=<?= $acteur["id_personne"] ?>">
                     <div class="acteur">
-                        <img src="<?= $acteur['image'] ?>" alt="">
+                        <img src="upload/personne/<?= $acteur['image'] ?>" alt="">
                         <p>
                             <?= $acteur["personne"] ?>
                         </p>

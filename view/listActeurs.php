@@ -5,7 +5,7 @@ ob_start();
 <?php foreach ($listActeurs->fetchAll() as $acteur) { ?>
     <a href="index.php?action=acteurDetails&id=<?= $acteur["id_personne"] ?>">
         <div class="list_wrapper">
-            <img class="list_img" src="<?= $acteur["image"] ?>" alt="photo">
+            <img class="list_img" src="upload/personne/<?= $acteur["image"] ?>" alt="photo">
             <div class="list_infos">
                 <h3>
                     <?= $acteur["personne"] ?>
