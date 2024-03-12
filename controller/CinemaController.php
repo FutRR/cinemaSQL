@@ -159,4 +159,65 @@ class CinemaController
         require "view/addGenre.php";
     }
 
+    //Ajout d'un Réalisateur//
+    public function addRealisateur()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_POST["submit"])) {
+            $nom = filter_var($_POST["nom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $prenom = filter_var($_POST["prenom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $dateNaissance = filter_var($_POST["dateNaissance"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $sexe = filter_var($_POST["sexe"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $biographie = filter_var($_POST["biographie"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $addPersonne = $pdo->prepare("INSERT INTO personne (nom, prenom, dateNaissance, sexe, biographie) 
+            VALUES (:nom, :prenom, :dateNaissance, :sexe, :biographie)");
+
+            $addPersonne->execute([
+                "nom" => $nom,
+                "prenom" => $prenom,
+                "dateNaissance" => $dateNaissance,
+                "sexe" => $sexe,
+                "biographie" => $biographie,
+            ]);
+
+            $lastInsertedId = $pdo->lastInsertId();
+
+            $addRealisateur = $pdo->prepare("INSERT INTO realisateur (id_personne) VALUES (:id_personne)");
+            $addRealisateur->execute(["id_personne" => $lastInsertedId]);
+
+            if (isset($_FILES['file'])) {
+                $tmpName = $_FILES['file']['tmp_name'];
+                $name = $_FILES['file']['name'];
+                $size = $_FILES['file']['size'];
+                $error = $_FILES['file']['error'];
+
+                $tabExtension = explode('.', $name);
+                $extension = strtolower(end($tabExtension));
+                //Tableau des extensions que l'on accepte
+                $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+                //Taille max que l'on accepte
+                $maxSize = 400000;
+                if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                    $uniqueName = uniqid('', true);
+                    //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                    $file = $uniqueName . "." . $extension;
+                    //$file = 5f586bf96dcd38.73540086.jpg
+                    move_uploaded_file($tmpName, './upload/' . $file);
+
+                    $addImage = $pdo->prepare("INSERT INTO personne (image) 
+                    VALUES (:image)
+                    WHERE id_personne = :id_personne");
+                    $addImage->execute([
+                        "image" => $file,
+                        "id_personne" => $lastInsertedId,
+                    ]);
+                } else {
+                    echo "Mauvaise extension ou taille trop grande ou erreur";
+                }
+            }
+        }
+        require "view/addRealisateur.php";
+    }
+
 }
