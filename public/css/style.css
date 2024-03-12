@@ -20,10 +20,12 @@ body{
     color: #fff;
     font-family: "IBM Plex Mono", monospace;
     text-transform: uppercase;
+    height: max-content;
 }
 
 main{
     margin: 0 150px;
+    height: max-content;
 }
 
 /* Navigation Bar */
@@ -251,4 +253,12 @@ nav ul li{
 
 .film img{
     width: 100px;
+}
+
+/* Ajouts */
+
+.add_btn{
+    padding: 10px 20px;
+    background-color: #101C28;
+    border-radius: 15px;
 }

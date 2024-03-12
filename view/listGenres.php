@@ -12,8 +12,11 @@ ob_start();
             </div>
         </div>
     </a>
-<?php }
+<?php } ?>
 
+<a class="add_btn" href="index.php?action=addGenre">Ajouter</a>
+
+<?php
 $titre = "Liste des genres";
 $titre_secondaire = "Liste des genres";
 $content = ob_get_clean();

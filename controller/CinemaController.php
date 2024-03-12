@@ -143,4 +143,20 @@ class CinemaController
         }
     }
 
+    //Ajout d'un film//
+    public function addGenre()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_POST["submit"])) {
+            $nomGenre = filter_var($_POST["nomGenre"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $addGenre = $pdo->prepare("INSERT INTO genre (nomGenre)
+            VALUES (:nomGenre)");
+
+            $addGenre->bindValue(":nomGenre", $nomGenre);
+            $addGenre->execute();
+        }
+        require "view/addGenre.php";
+    }
+
 }
