@@ -23,9 +23,11 @@ ob_start();
             </div>
         </div>
     </a>
-    <?php
-}
+<?php } ?>
 
+<a class="add_btn" href="index.php?action=addActeur">Ajouter</a>
+
+<?php
 $titre = "Liste des acteurs";
 $titre_secondaire = "Liste des acteurs";
 $content = ob_get_clean();
