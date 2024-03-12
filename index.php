@@ -55,6 +55,10 @@ if (isset($_GET["action"])) {
             $ctrlCinema->addActeur();
             break;
 
+        case "addFilm":
+            $ctrlCinema->addFilm();
+            break;
+
         default:
             $ctrlCinema->listFilms();
     }

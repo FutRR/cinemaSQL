@@ -267,5 +267,60 @@ class CinemaController
         require "view/addActeur.php";
     }
 
+    //AJout d'un film//
+    public function addFilm()
+    {
+        $pdo = Connect::seConnecter();
+        $listRealisateurs = $pdo->query("SELECT id_realisateur, image, CONCAT(prenom, ' ', nom) AS personne
+        FROM personne
+        INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        ");
+
+        if (isset($_POST["submit"])) {
+            $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $sortieFr = filter_var($_POST["sortieFr"], FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_var($_POST["duree"], FILTER_SANITIZE_NUMBER_INT);
+            $note = filter_var($_POST["note"], FILTER_SANITIZE_NUMBER_INT);
+            $synopsis = filter_var($_POST["synopsis"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $id_realisateur = filter_var($_POST["id_realisateur"], FILTER_SANITIZE_NUMBER_INT);
+            $tmpName = $_FILES['file']['tmp_name'];
+            $name = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $error = $_FILES['file']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+            //Tableau des extensions que l'on accepte
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            //Taille max que l'on accepte
+            $maxSize = 400000;
+
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                $file = $uniqueName . "." . $extension;
+                //$file = 5f586bf96dcd38.73540086.jpg
+                move_uploaded_file($tmpName, 'upload/film/' . $file);
+
+
+                $addFilm = $pdo->prepare("INSERT INTO film (titre, sortieFr, duree, note, synopsis, affiche, id_realisateur)
+                VALUES (:titre, :sortieFr, :duree, :note, :synopsis, :affiche, :id_realisateur)");
+
+                $addFilm->execute([
+                    "titre" => $titre,
+                    "sortieFr" => $sortieFr,
+                    "duree" => $duree,
+                    "note" => $note,
+                    "synopsis" => $synopsis,
+                    "affiche" => $file,
+                    "id_realisateur" => $id_realisateur,
+                ]);
+
+
+            }
+        }
+        require "view/addFilm.php";
+    }
+
 
 }
