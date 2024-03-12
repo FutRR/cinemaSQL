@@ -3,13 +3,15 @@ ob_start();
 ?>
 
 <?php foreach ($listGenres->fetchAll() as $genre) { ?>
-    <div class="list_genre_wrapper">
-        <div class="list_genre_infos">
-            <h3>
-                <?= $genre["nomGenre"] ?>
-            </h3>
+    <a href="index.php?action=genreDetails&id=<?= $genre["id_genre"] ?>">
+        <div class="list_genre_wrapper">
+            <div class="list_genre_infos">
+                <h3>
+                    <?= $genre["nomGenre"] ?>
+                </h3>
+            </div>
         </div>
-    </div>
+    </a>
 <?php }
 
 $titre = "Liste des genres";

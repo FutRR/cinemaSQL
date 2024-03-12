@@ -13,8 +13,11 @@ ob_start();
                 <p>
                     <?= $film["sortieFr"] ?>
                 </p>
-                <p>
-                    <?= $film["note"] ?> / 10
+                <p class="note">
+                    <i class="fa-regular fa-star"></i>
+                    <span>
+                        <?= $film["note"] ?>
+                    </span> / 10
                 </p>
             </div>
         </div>

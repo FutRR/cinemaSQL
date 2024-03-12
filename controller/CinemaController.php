@@ -126,4 +126,21 @@ class CinemaController
         }
     }
 
+    //Détails d'un genre//
+    public function genreDetails()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_GET["id"])) {
+            $index = $_GET["id"];
+            $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre
+            FROM film
+            INNER JOIN classer ON film.id_film = classer.id_film
+            INNER JOIN genre ON classer.id_genre = genre.id_genre
+            WHERE genre.id_genre = :id_genre");
+            $genreDetails->execute(["id_genre" => $index]);
+
+            require "view/genreDetails.php";
+        }
+    }
+
 }
