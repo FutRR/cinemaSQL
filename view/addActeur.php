@@ -51,8 +51,6 @@ ob_start();
 </form>
 
 <?php
-var_dump($_POST);
-
 $titre = "Ajout d'un acteur";
 $titre_secondaire = "Ajout d'un acteur";
 $content = ob_get_clean();

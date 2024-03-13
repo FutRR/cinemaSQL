@@ -53,94 +53,88 @@ class CinemaController
     }
 
     //Détails d'un film//
-    public function filmDetails()
+    public function filmDetails($id)
     {
         $pdo = Connect::seConnecter();
-        if (isset($_GET["id"])) {
-            $index = $_GET["id"];
-            $filmDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+        $filmDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
             FROM film
             INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
             INNER JOIN personne ON realisateur.id_personne = personne.id_personne
             WHERE id_film = :id_film");
-            $filmDetails->execute(["id_film" => $index]);
+        $filmDetails->execute(["id_film" => $id]);
 
-            $acteurs = $pdo->prepare("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
+        $acteurs = $pdo->prepare("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
             FROM casting
             INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
             INNER JOIN film ON casting.id_film = film.id_film
             INNER JOIN role ON casting.id_role = role.id_role
             WHERE casting.id_film = :id_film");
-            $acteurs->execute(["id_film" => $index]);
+        $acteurs->execute(["id_film" => $id]);
 
-            require "view/filmDetails.php";
-        }
+        $genres = $pdo->prepare("SELECT genre.id_genre, nomGenre 
+            FROM genre
+            INNER JOIN classer ON genre.id_genre = classer.id_genre
+            WHERE classer.id_film = :id_film");
+        $genres->execute(["id_film" => $id]);
+
+        require "view/filmDetails.php";
     }
 
     //Détails d'un acteur//
-    public function acteurDetails()
+    public function acteurDetails($id)
     {
         $pdo = Connect::seConnecter();
-        if (isset($_GET["id"])) {
-            $index = $_GET["id"];
-            $acteurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+        $acteurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
             FROM personne
             WHERE id_personne = :id_personne");
-            $acteurDetails->execute(["id_personne" => $index]);
+        $acteurDetails->execute(["id_personne" => $id]);
 
-            $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche, role.id_role, role.nomRole
+        $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche, role.id_role, role.nomRole
             FROM film
             INNER JOIN casting ON film.id_film = casting.id_film
             INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
             INNER JOIN role ON casting.id_role = role.id_role
             WHERE personne.id_personne = :id_personne");
-            $films->execute(["id_personne" => $index]);
+        $films->execute(["id_personne" => $id]);
 
 
-            require "view/acteurDetails.php";
-        }
+        require "view/acteurDetails.php";
     }
 
     //Détails d'un réalisateur//
-    public function realisateurDetails()
+    public function realisateurDetails($id)
     {
         $pdo = Connect::seConnecter();
-        if (isset($_GET["id"])) {
-            $index = $_GET["id"];
-            $realisateurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+        $realisateurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
             FROM personne
             WHERE id_personne = :id_personne");
-            $realisateurDetails->execute(["id_personne" => $index]);
+        $realisateurDetails->execute(["id_personne" => $id]);
 
-            $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche
+        $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche
             FROM film
             INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
             INNER JOIN personne ON realisateur.id_personne = personne.id_personne
             WHERE personne.id_personne = :id_personne");
-            $films->execute(["id_personne" => $index]);
+        $films->execute(["id_personne" => $id]);
 
 
-            require "view/realisateurDetails.php";
-        }
+        require "view/realisateurDetails.php";
     }
 
     //Détails d'un genre//
-    public function genreDetails()
+    public function genreDetails($id)
     {
         $pdo = Connect::seConnecter();
-        if (isset($_GET["id"])) {
-            $index = $_GET["id"];
-            $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre
+        $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre
             FROM film
             INNER JOIN classer ON film.id_film = classer.id_film
             INNER JOIN genre ON classer.id_genre = genre.id_genre
             WHERE genre.id_genre = :id_genre");
-            $genreDetails->execute(["id_genre" => $index]);
+        $genreDetails->execute(["id_genre" => $$id]);
 
-            require "view/genreDetails.php";
-        }
+        require "view/genreDetails.php";
     }
 
     //Ajout d'un film//
@@ -338,5 +332,46 @@ class CinemaController
         require "view/addFilm.php";
     }
 
+    //Ajout d'un role//
+    public function addRole()
+    {
+        $pdo = Connect::seConnecter();
+        if (isset($_POST["submit"])) {
+            $nomRole = filter_var($_POST["nomRole"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $addRole = $pdo->prepare("INSERT INTO role (nomRole) VALUES (:nomRole)");
+            $addRole->execute(["nomRole" => $nomRole]);
+        }
+        require "view/addRole.php";
+    }
+
+    //Ajout d'un casting//
+    public function addCasting($id)
+    {
+        $pdo = Connect::seConnecter();
+        $listActeurs = $pdo->query("SELECT id_acteur, personne.id_personne, CONCAT(prenom, ' ', nom) AS personne
+        FROM personne
+        INNER JOIN acteur ON personne.id_personne = acteur.id_personne");
+
+        $listRoles = $pdo->query("SELECT id_role, nomRole FROM role");
+
+        if (isset($_POST["submit"])) {
+            $id_role = filter_var($_POST["id_role"], FILTER_SANITIZE_NUMBER_INT);
+            $id_acteur = filter_var($_POST["id_acteur"], FILTER_SANITIZE_NUMBER_INT);
+
+            if ($id_role && $id_acteur) {
+                $addCasting = $pdo->prepare("INSERT INTO casting (id_film, id_acteur, id_role)
+                VALUES (:id_film, :id_acteur, :id_role)");
+                $addCasting->execute([
+                    "id_film" => $id,
+                    "id_acteur" => $id_acteur,
+                    "id_role" => $id_role,
+                ]);
+            }
+        }
+
+
+        require "view/addCasting.php";
+    }
 
 }

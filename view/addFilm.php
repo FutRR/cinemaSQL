@@ -27,7 +27,7 @@ ob_start();
     <p>
         <label>
             Note sur 10 :
-            <input type="number" max="10" min="0" name="note">
+            <input type="number" max="11" min="0" name="note">
         </label>
     </p>
 

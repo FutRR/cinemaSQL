@@ -13,21 +13,32 @@ ob_start();
             <h3>
                 <?= $film["titre"] ?>
             </h3>
+
             <p>
                 <?= $film["sortieFr"] ?> |
                 <?= $film["duree"] ?> minutes
             </p>
+
             <p class="note">
                 <i class="fa-regular fa-star"></i>
                 <span>
                     <?= $film["note"] ?>
                 </span> / 10
             </p>
+            <?php foreach ($genres->fetchAll() as $genre) { ?>
+                <a href="index.php?action=genreDetails&id=<?= $genre['id_genre'] ?>">
+                    <p>
+                        <?= $genre['nomGenre'] ?>
+                    </p>
+                </a>
+            <?php } ?>
+
             <a href="index.php?action=realisateurDetails&id=<?= $film["id_personne"] ?>">
                 <p>
                     <?= $film["personne"] ?>
                 </p>
             </a>
+
         </div>
     </div>
 
@@ -40,6 +51,8 @@ ob_start();
 
     <div class="acteurs_wrap">
         <h4>Casting :</h4>
+
+        <a class="add_btn" href="index.php?action=addCasting&id=<?= $film["id_film"] ?>">Ajouter un casting</a>
         <div class="acteurs">
             <?php foreach ($acteurs->fetchAll() as $acteur) { ?>
                 <a href="index.php?action=acteurDetails&id=<?= $acteur["id_personne"] ?>">

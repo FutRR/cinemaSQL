@@ -8,6 +8,8 @@ spl_autoload_register(function ($class_name) {
 
 $ctrlCinema = new CinemaController();
 
+$id = (isset($_GET["id"])) ? $_GET["id"] : "";
+
 if (isset($_GET["action"])) {
     switch ($_GET["action"]) {
 
@@ -28,19 +30,19 @@ if (isset($_GET["action"])) {
             break;
 
         case "filmDetails":
-            $ctrlCinema->filmDetails();
+            $ctrlCinema->filmDetails($id);
             break;
 
         case "acteurDetails":
-            $ctrlCinema->acteurDetails();
+            $ctrlCinema->acteurDetails($id);
             break;
 
         case "realisateurDetails":
-            $ctrlCinema->realisateurDetails();
+            $ctrlCinema->realisateurDetails($id);
             break;
 
         case "genreDetails":
-            $ctrlCinema->genreDetails();
+            $ctrlCinema->genreDetails($id);
             break;
 
         case "addGenre":
@@ -57,6 +59,14 @@ if (isset($_GET["action"])) {
 
         case "addFilm":
             $ctrlCinema->addFilm();
+            break;
+
+        case "addRole":
+            $ctrlCinema->addRole();
+            break;
+
+        case "addCasting":
+            $ctrlCinema->addCasting($id);
             break;
 
         default:
