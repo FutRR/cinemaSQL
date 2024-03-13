@@ -123,6 +123,26 @@ nav ul li{
 }
 
 
+/* Main Page */
+
+.box_wrapper .card_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_wrapper .card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card_wrapper  .card img{
+    width: 150px;
+}
+
 /* Lists */
 
 .list_wrapper{

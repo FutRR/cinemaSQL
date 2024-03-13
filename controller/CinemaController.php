@@ -6,11 +6,18 @@ use Model\Connect;
 
 class CinemaController
 {
+
+    public function mainPage()
+    {
+        $pdo = Connect::seConnecter();
+        $listCard = $pdo->query("SELECT * FROM film ORDER BY sortieFr DESC LIMIT 3");
+        require "view/main.php";
+    }
     //Lister des films //
     public function listFilms()
     {
         $pdo = Connect::seConnecter();
-        $listFilms = $pdo->query("SELECT * FROM film");
+        $listFilms = $pdo->query("SELECT * FROM film ORDER BY sortieFr");
         require "view/listFilms.php";
     }
 
@@ -24,6 +31,7 @@ class CinemaController
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
         INNER JOIN film ON casting.id_film = film.id_film
         GROUP BY acteur.id_acteur
+        ORDER BY nom
         ");
 
         require "view/listActeurs.php";
@@ -47,6 +55,8 @@ class CinemaController
         INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
         INNER JOIN film ON realisateur.id_realisateur = film.id_realisateur
         GROUP BY realisateur.id_realisateur
+        ORDER BY nom
+
         ");
 
         require "view/listRealisateurs.php";
@@ -132,7 +142,7 @@ class CinemaController
             INNER JOIN classer ON film.id_film = classer.id_film
             INNER JOIN genre ON classer.id_genre = genre.id_genre
             WHERE genre.id_genre = :id_genre");
-        $genreDetails->execute(["id_genre" => $$id]);
+        $genreDetails->execute(["id_genre" => $id]);
 
         require "view/genreDetails.php";
     }
@@ -149,6 +159,7 @@ class CinemaController
 
             $addGenre->bindValue(":nomGenre", $nomGenre);
             $addGenre->execute();
+            header("Location:index.php?action=listGenres");
         }
         require "view/addGenre.php";
     }
@@ -203,6 +214,7 @@ class CinemaController
             } else {
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
+            header("Location:index.php?action=listRealisateurs");
         }
         require "view/addRealisateur.php";
     }
@@ -257,6 +269,7 @@ class CinemaController
             } else {
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
+            header("Location:index.php?action=listActeurs");
         }
         require "view/addActeur.php";
     }
@@ -328,6 +341,7 @@ class CinemaController
                 }
 
             }
+            header("Location:index.php?action=listFilms");
         }
         require "view/addFilm.php";
     }
@@ -368,6 +382,7 @@ class CinemaController
                     "id_role" => $id_role,
                 ]);
             }
+            header("Location:index.php?action=filmDetails&id={$id}");
         }
 
 

@@ -13,6 +13,10 @@ $id = (isset($_GET["id"])) ? $_GET["id"] : "";
 if (isset($_GET["action"])) {
     switch ($_GET["action"]) {
 
+        case "mainPage":
+            $ctrlCinema->mainPage();
+            break;
+
         case "listFilms":
             $ctrlCinema->listFilms();
             break;
@@ -70,8 +74,8 @@ if (isset($_GET["action"])) {
             break;
 
         default:
-            $ctrlCinema->listFilms();
+            $ctrlCinema->mainPage();
     }
 } else {
-    $ctrlCinema->listFilms();
+    $ctrlCinema->mainPage();
 }
