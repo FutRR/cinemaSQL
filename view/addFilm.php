@@ -61,7 +61,12 @@ ob_start();
     <p>
     <fieldset>
         <legend>Genres :</legend>
-        <input type="checkbox" name="" id="">
+        <?php foreach ($listGenres->fetchAll() as $genre) { ?>
+            <input type="checkbox" value="<?= $genre['id_genre'] ?>" name="id_genre[]" id="<?= $genre['id_genre'] ?>">
+            <label for="<?= $genre['id_genre'] ?>">
+                <?= $genre['nomGenre'] ?>
+            </label>
+        <?php } ?>
     </fieldset>
     </p>
 

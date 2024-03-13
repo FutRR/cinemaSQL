@@ -276,6 +276,9 @@ class CinemaController
         INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
         ");
 
+        $listGenres = $pdo->query("SELECT * FROM genre");
+
+
         if (isset($_POST["submit"])) {
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $sortieFr = filter_var($_POST["sortieFr"], FILTER_SANITIZE_NUMBER_INT);
@@ -283,6 +286,8 @@ class CinemaController
             $note = filter_var($_POST["note"], FILTER_SANITIZE_NUMBER_INT);
             $synopsis = filter_var($_POST["synopsis"], FILTER_SANITIZE_SPECIAL_CHARS);
             $id_realisateur = filter_var($_POST["id_realisateur"], FILTER_SANITIZE_NUMBER_INT);
+            $id_genre = filter_var($_POST["id_genre"], FILTER_SANITIZE_NUMBER_INT);
+
             $tmpName = $_FILES['file']['tmp_name'];
             $name = $_FILES['file']['name'];
             $size = $_FILES['file']['size'];
@@ -316,6 +321,17 @@ class CinemaController
                     "id_realisateur" => $id_realisateur,
                 ]);
 
+                $lastInsertedId = $pdo->lastInsertId();
+
+                foreach ($_POST["id_genre"] as $genre) {
+
+                    $addGenre = $pdo->prepare("INSERT INTO classer (id_film, id_genre) 
+                    VALUES (:id_film, :id_genre)");
+                    $addGenre->execute([
+                        "id_film" => $lastInsertedId,
+                        "id_genre" => $genre,
+                    ]);
+                }
 
             }
         }

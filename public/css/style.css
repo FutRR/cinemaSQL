@@ -275,3 +275,7 @@ nav ul li{
     background-color: #101C28;
     border-radius: 15px;
 }
+
+fieldset{
+    width: 735px;
+}
