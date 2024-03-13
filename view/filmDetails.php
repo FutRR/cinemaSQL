@@ -7,7 +7,7 @@ ob_start();
 
 
     <div class="details_infos">
-        <img class="details_img" src="upload/film/<?= $film["affiche"] ?>" alt="affiche film">
+        <img class="details_img" src="upload/film/affiche/<?= $film["affiche"] ?>" alt="affiche film">
 
         <div>
             <h3>

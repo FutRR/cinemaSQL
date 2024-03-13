@@ -5,7 +5,7 @@ ob_start();
 <?php foreach ($listFilms->fetchAll() as $film) { ?>
     <a href="index.php?action=filmDetails&id=<?= $film['id_film'] ?>">
         <div class="list_wrapper">
-            <img class="list_img" src="upload/film/<?= $film["affiche"] ?>" alt="affiche">
+            <img class="list_img" src="upload/film/affiche/<?= $film["affiche"] ?>" alt="affiche">
             <div class="list_infos">
                 <h3>
                     <?= $film["titre"] ?>

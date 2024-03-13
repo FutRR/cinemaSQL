@@ -8,6 +8,7 @@
         <?= $titre ?>
     </title>
     <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -41,10 +42,15 @@
         </h2>
         <?= $content ?>
     </main>
-    <img class="waves bottom_waves" src="public/img/bottomWaves.svg" alt="">
+
+    <footer>
+        <img class="waves bottom_waves" src="public/img/bottomWaves.svg" alt="">
+    </footer>
 
     <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./public/js/script.js"></script>
+
 </body>
 
 </html>

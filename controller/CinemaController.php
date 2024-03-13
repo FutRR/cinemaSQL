@@ -10,8 +10,9 @@ class CinemaController
     public function mainPage()
     {
         $pdo = Connect::seConnecter();
-        $listCard = $pdo->query("SELECT * FROM film ORDER BY sortieFr DESC LIMIT 3");
+        $listCardFilm = $pdo->query("SELECT * FROM film ORDER BY sortieFr DESC LIMIT 3");
         require "view/main.php";
+
     }
     //Lister des films //
     public function listFilms()
