@@ -10,9 +10,20 @@ class CinemaController
     public function mainPage()
     {
         $pdo = Connect::seConnecter();
-        $listCardFilm = $pdo->query("SELECT * FROM film ORDER BY sortieFr DESC LIMIT 3");
-        require "view/main.php";
+        $listCardFilm = $pdo->query("SELECT * 
+        FROM film 
+        ORDER BY sortieFr 
+        DESC LIMIT 3");
 
+        $listCardActeur = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne 
+        FROM personne
+        INNER JOIN acteur ON personne.id_personne = acteur.id_personne
+        INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
+        INNER JOIN film ON casting.id_film = film.id_film
+        ORDER BY sortieFr DESC
+        LIMIT 3");
+
+        require "view/main.php";
     }
     //Lister des films //
     public function listFilms()
@@ -313,7 +324,7 @@ class CinemaController
                 //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                 $file = $uniqueName . "." . $extension;
                 //$file = 5f586bf96dcd38.73540086.jpg
-                move_uploaded_file($tmpName, 'upload/film/' . $file);
+                move_uploaded_file($tmpName, 'upload/film/affiche/' . $file);
 
 
                 $addFilm = $pdo->prepare("INSERT INTO film (titre, sortieFr, duree, note, synopsis, affiche, id_realisateur)

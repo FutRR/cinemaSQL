@@ -130,53 +130,21 @@ nav ul li{
 
 /* Main Page */
 .box_wrapper{
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     z-index: 1;
-    margin-top: 10px;
     padding: 40px;
 }
 
 .box_wrapper h3{
-    position: absolute;
-    top: 0px;
-    padding: 0 10px;
-    margin-top: 20px;
     font-size: 32px;
-    z-index: 10;
-    background-color: #05090D;
 }
 
 .box_wrapper .card_wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    border: 1px solid #fff;
-    z-index: 1;
-
-}
-
-.swiper {
-    width: 600px;
-    height: 300px;
-    border-radius: 15px;
-}
-
-.slider-swipe{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.swiper-slide img{
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 
@@ -186,12 +154,57 @@ nav ul li{
     align-items: center;
     justify-content: center;
     margin: 20px;
-
 }
 
 .card_wrapper  .card img{
     width: 300px;
     height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 1px solid #fff;
+
+}
+
+/* SWIPER */
+
+.slider_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.slider_wrapper h3{
+    font-size: 32px;
+}
+
+
+.swiper {
+    width: 1000px;
+    height: 500px;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #fff;
+}
+
+.swiper h3{
+    font-size: 32px;
+}
+
+.slider-swipe{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.swiper-slide img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 /* Lists */
@@ -209,8 +222,9 @@ nav ul li{
 }
 
 .list_img{
-    width: 150px;
+    width: 200px;
     padding: 20px;
+    object-fit: cover;
 }
 
 .list_genre_wrapper{
@@ -241,10 +255,13 @@ nav ul li{
     margin: 10px;
 }
 
+
 .details_img{
-    width: 150px;
+    width: 200px;
     padding: 20px;
+    object-fit: cover;
 }
+
 
 .note{
     display: flex;
@@ -306,7 +323,10 @@ nav ul li{
 }
 
 .acteur img{
-    width: 100px;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 .films_wrap{
@@ -336,7 +356,10 @@ nav ul li{
 }
 
 .film img{
-    height: 100px;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 /* Ajouts */

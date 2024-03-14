@@ -24,8 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     // autoplay: {
-    //   delay: 1000,
+    //   delay: 3000,
     //   disableOnInteraction: false,
+    //   pauseOnMouseEnter: true,
     // },
 
     // Navigation arrows
