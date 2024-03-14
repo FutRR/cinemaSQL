@@ -1,10 +1,10 @@
 <?php
 ob_start();
+
+$film = $filmDetails->fetch();
 ?>
 
-<?php $film = $filmDetails->fetch(); ?>
 <div class="details_wrapper">
-
 
     <div class="details_infos">
         <div class="img_wrapper">
@@ -72,8 +72,10 @@ ob_start();
         </div>
     </div>
 
-
 </div>
+
+<a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
+
 
 <?php
 $titre = $film["titre"];

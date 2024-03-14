@@ -50,7 +50,11 @@ ob_start();
 
 <?php
 $titre = $realisateur["personne"];
-$titre_secondaire = "{$realisateur['personne']} | Realisateur";
+if ($realisateur["sexe"] === "M") {
+    $titre_secondaire = "{$acteur["personne"]} | Réalisateur";
+} elseif ($realisateur["sexe"] === "F") {
+    $titre_secondaire = "{$acteur["personne"]} | Réalisatrice";
+}
 $content = ob_get_clean();
 require "view/template.php";
 ?>

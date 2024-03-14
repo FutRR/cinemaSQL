@@ -73,6 +73,10 @@ if (isset($_GET["action"])) {
             $ctrlCinema->addCasting($id);
             break;
 
+        case "updateFilm":
+            $ctrlCinema->updateFilm($id);
+            break;
+
         default:
             $ctrlCinema->mainPage();
     }

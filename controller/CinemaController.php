@@ -15,7 +15,7 @@ class CinemaController
         ORDER BY sortieFr 
         DESC LIMIT 3");
 
-        $listCardActeur = $pdo->query("SELECT image, CONCAT(prenom, ' ', nom) AS personne 
+        $listCardActeur = $pdo->query("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne 
         FROM personne
         INNER JOIN acteur ON personne.id_personne = acteur.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
@@ -286,7 +286,7 @@ class CinemaController
         require "view/addActeur.php";
     }
 
-    //AJout d'un film//
+    //Ajout d'un film//
     public function addFilm()
     {
         $pdo = Connect::seConnecter();
@@ -342,7 +342,7 @@ class CinemaController
 
                 $lastInsertedId = $pdo->lastInsertId();
 
-                foreach ($_POST["id_genre"] as $genre) {
+                foreach ($id_genre as $genre) {
 
                     $addGenre = $pdo->prepare("INSERT INTO classer (id_film, id_genre) 
                     VALUES (:id_film, :id_genre)");
@@ -352,6 +352,8 @@ class CinemaController
                     ]);
                 }
 
+            } else {
+                echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
             header("Location:index.php?action=listFilms");
         }
@@ -399,6 +401,102 @@ class CinemaController
 
 
         require "view/addCasting.php";
+    }
+
+    public function updateFilm($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $listRealisateurs = $pdo->query("SELECT id_realisateur, image, CONCAT(prenom, ' ', nom) AS personne
+        FROM personne
+        INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        ");
+
+        $listGenres = $pdo->query("SELECT * FROM genre");
+
+        $prevFilmInfo = $pdo->prepare("SELECT * FROM film WHERE id_film = :id_film");
+        $prevFilmInfo->execute(["id_film" => $id]);
+
+        $prevListRealisateurs = $pdo->prepare("SELECT realisateur.id_realisateur, image, CONCAT(prenom, ' ', nom) AS personne
+        FROM personne
+        INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        INNER JOIN film ON realisateur.id_realisateur = film.id_realisateur
+        WHERE id_film = :id_film
+        ");
+        $prevListRealisateurs->execute(["id_film" => $id]);
+
+        $prevListGenres = $pdo->prepare("SELECT * 
+        FROM genre 
+        INNER JOIN classer ON genre.id_genre = classer.id_genre
+        WHERE id_film = :id_film"
+        );
+        $prevListGenres->execute(["id_film" => $id]);
+
+        if (isset($_POST['submit'])) {
+            $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $sortieFr = filter_var($_POST["sortieFr"], FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_var($_POST["duree"], FILTER_SANITIZE_NUMBER_INT);
+            $note = filter_var($_POST["note"], FILTER_SANITIZE_NUMBER_INT);
+            $synopsis = filter_var($_POST["synopsis"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $id_realisateur = filter_var($_POST["id_realisateur"], FILTER_SANITIZE_NUMBER_INT);
+            $id_genre = filter_var($_POST["id_genre"], FILTER_SANITIZE_NUMBER_INT);
+
+            $tmpName = $_FILES['file']['tmp_name'];
+            $name = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $error = $_FILES['file']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+            //Tableau des extensions que l'on accepte
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            //Taille max que l'on accepte
+            $maxSize = 700000;
+
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                $file = $uniqueName . "." . $extension;
+                //$file = 5f586bf96dcd38.73540086.jpg
+                move_uploaded_file($tmpName, 'upload/film/affiche/' . $file);
+
+
+                $updateFilm = $pdo->prepare("UPDATE film 
+                SET titre = :titre,
+                sortieFr = :sortieFr,
+                duree = :duree,
+                note = :note,
+                synopsis = :synopsis,
+                affiche = :affiche,
+                id_realisateur = :id_realisateur 
+                WHERE id_film = :id_film");
+
+                $updateFilm->execute([
+                    "titre" => $titre,
+                    "sortieFr" => $sortieFr,
+                    "duree" => $duree,
+                    "note" => $note,
+                    "synopsis" => $synopsis,
+                    "affiche" => $file,
+                    "id_realisateur" => $id_realisateur,
+                    "id_film" => $id,
+                ]);
+
+                foreach ($id_genre as $genre) {
+
+                    $addGenre = $pdo->prepare("UPDATE classer
+                    SET id_film = :id_film, id_genre = :id_genre");
+                    $addGenre->execute([
+                        "id_film" => $id,
+                        "id_genre" => $genre,
+                    ]);
+                }
+            } else {
+                echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
+            }
+        }
+
+        require "view/updateFilm.php";
     }
 
 }

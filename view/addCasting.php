@@ -1,6 +1,5 @@
 <?php
 ob_start();
-
 ?>
 
 <form action="index.php?action=addCasting&id=<?= $_GET["id"] ?>" method="POST" enctype="multipart/form-data">

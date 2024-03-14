@@ -49,6 +49,7 @@ main{
 
 nav{
     margin: 0 50px;
+    margin-bottom: 50px;
     height: 366px;
     display: flex;
     justify-content: space-between;
@@ -371,6 +372,7 @@ nav ul li{
     padding: 10px 20px;
     background-color: #101C28;
     border-radius: 15px;
+    width: min-content;
 }
 
 fieldset{
