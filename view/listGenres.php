@@ -2,6 +2,8 @@
 ob_start();
 ?>
 
+<a class="add_btn" href="index.php?action=addGenre">Ajouter</a>
+
 <?php foreach ($listGenres->fetchAll() as $genre) { ?>
     <a href="index.php?action=genreDetails&id=<?= $genre["id_genre"] ?>">
         <div class="list_genre_wrapper">
@@ -12,11 +14,8 @@ ob_start();
             </div>
         </div>
     </a>
-<?php } ?>
+<?php }
 
-<a class="add_btn" href="index.php?action=addGenre">Ajouter</a>
-
-<?php
 $titre = "Liste des genres";
 $titre_secondaire = "Liste des genres";
 $content = ob_get_clean();

@@ -2,6 +2,8 @@
 ob_start();
 ?>
 
+<a class="add_btn" href="index.php?action=addRealisateur">Ajouter</a>
+
 <?php foreach ($listRealisateurs->fetchAll() as $realisateur) { ?>
     <a href="index.php?action=realisateurDetails&id=<?= $realisateur["id_personne"] ?>">
         <div class="list_wrapper">
@@ -23,14 +25,8 @@ ob_start();
             </div>
         </div>
     </a>
+<?php }
 
-
-<?php } ?>
-
-<a class="add_btn" href="index.php?action=addRealisateur">Ajouter</a>
-
-
-<?php
 $titre = "Liste des Realisateurs";
 $titre_secondaire = "Liste des Realisateurs";
 $content = ob_get_clean();
