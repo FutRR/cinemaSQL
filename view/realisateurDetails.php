@@ -51,9 +51,9 @@ ob_start();
 <?php
 $titre = $realisateur["personne"];
 if ($realisateur["sexe"] === "M") {
-    $titre_secondaire = "{$acteur["personne"]} | Réalisateur";
+    $titre_secondaire = "{$realisateur["personne"]} | Réalisateur";
 } elseif ($realisateur["sexe"] === "F") {
-    $titre_secondaire = "{$acteur["personne"]} | Réalisatrice";
+    $titre_secondaire = "{$realisateur["personne"]} | Réalisatrice";
 }
 $content = ob_get_clean();
 require "view/template.php";

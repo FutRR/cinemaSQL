@@ -2,12 +2,9 @@
 ob_start();
 
 $prevFilm = $prevFilmInfo->fetch();
-$prevReal = $prevListRealisateurs->fetchAll();
-$prevGenre = $prevListGenres->fetchAll();
-
 ?>
 
-<form action="index.php?action=addFilm$id=<?= $_GET["id"] ?>" method="POST" enctype="multipart/form-data">
+<form action="index.php?action=updateFilm&id=<?= $_GET["id"] ?>" method="POST" enctype="multipart/form-data">
     <p>
         <label>
             Titre :
@@ -39,7 +36,7 @@ $prevGenre = $prevListGenres->fetchAll();
     <p>
         <label>
             Synopsis :
-            <textarea name="synopsis" rows="3" value="<?= $prevFilm['synopsis'] ?>"></textarea>
+            <textarea name="synopsis" rows="3"><?= $prevFilm['synopsis'] ?></textarea>
         </label>
     </p>
 
@@ -54,11 +51,14 @@ $prevGenre = $prevListGenres->fetchAll();
         <label>
             Réalisateur :
             <select name="id_realisateur" value="<?= $prevReal["id_realisateur"] ?>">
-                <?php foreach ($listRealisateurs->fetchAll() as $realisateur) { ?>
-                    <option value="<?= $realisateur["id_realisateur"] ?>">
-                        <?= $realisateur["personne"] ?>
-                    </option>
-                <?php } ?>
+                <?php if ($listRealisateurs) {
+                    foreach ($listRealisateurs->fetchAll() as $realisateur) {
+                        $selected = ($realisateur["id_realisateur"] == $prevFilm["id_realisateur"]) ? 'selected' : ''; ?>
+                        <option value="<?= $realisateur["id_realisateur"] ?>" <?= $selected ?>>
+                            <?= $realisateur["personne"] ?>
+                        </option>
+                    <?php }
+                } ?>
             </select>
         </label>
     </p>
@@ -66,8 +66,11 @@ $prevGenre = $prevListGenres->fetchAll();
     <p>
     <fieldset>
         <legend>Genres :</legend>
-        <?php foreach ($listGenres->fetchAll() as $genre) { ?>
-            <input type="checkbox" value="<?= $genre['id_genre'] ?>" name="id_genre[]" id="<?= $genre['id_genre'] ?>">
+        <?php
+        foreach ($listGenres->fetchAll() as $genre) {
+            $checked = (in_array($genre['id_genre'], $idGenre)) ? 'checked' : ''; ?>
+            <input type="checkbox" value="<?= $genre['id_genre'] ?>" name="id_genre[]" id="<?= $genre['id_genre'] ?>"
+                <?= $checked ?>>
             <label for="<?= $genre['id_genre'] ?>">
                 <?= $genre['nomGenre'] ?>
             </label>
@@ -76,14 +79,15 @@ $prevGenre = $prevListGenres->fetchAll();
     </p>
 
     <p>
-        <input type="submit" name="submit" value="Ajouter le film">
+        <input type="submit" name="submit" value="Modifier le film">
     </p>
 
 
 </form>
 
 <?php
-$titre = "Ajout d'un film";
-$titre_secondaire = "Ajout d'un film";
+var_dump($listGenres->fetchAll());
+$titre = "Modification d'un film";
+$titre_secondaire = "Modification d'un film";
 $content = ob_get_clean();
 require "view/template.php";

@@ -8,9 +8,9 @@ spl_autoload_register(function ($class_name) {
 
 $ctrlCinema = new CinemaController();
 
-$id = (isset($_GET["id"])) ? $_GET["id"] : "";
+$id = (isset ($_GET["id"])) ? $_GET["id"] : "";
 
-if (isset($_GET["action"])) {
+if (isset ($_GET["action"])) {
     switch ($_GET["action"]) {
 
         case "mainPage":

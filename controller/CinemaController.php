@@ -163,7 +163,7 @@ class CinemaController
     public function addGenre()
     {
         $pdo = Connect::seConnecter();
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
             $nomGenre = filter_var($_POST["nomGenre"], FILTER_SANITIZE_SPECIAL_CHARS);
 
             $addGenre = $pdo->prepare("INSERT INTO genre (nomGenre)
@@ -180,7 +180,7 @@ class CinemaController
     public function addRealisateur()
     {
         $pdo = Connect::seConnecter();
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
 
             $nom = filter_var($_POST["nom"], FILTER_SANITIZE_SPECIAL_CHARS);
             $prenom = filter_var($_POST["prenom"], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -235,7 +235,7 @@ class CinemaController
     public function addActeur()
     {
         $pdo = Connect::seConnecter();
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
 
             $nom = filter_var($_POST["nom"], FILTER_SANITIZE_SPECIAL_CHARS);
             $prenom = filter_var($_POST["prenom"], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -298,7 +298,7 @@ class CinemaController
         $listGenres = $pdo->query("SELECT * FROM genre");
 
 
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $sortieFr = filter_var($_POST["sortieFr"], FILTER_SANITIZE_NUMBER_INT);
             $duree = filter_var($_POST["duree"], FILTER_SANITIZE_NUMBER_INT);
@@ -364,7 +364,7 @@ class CinemaController
     public function addRole()
     {
         $pdo = Connect::seConnecter();
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
             $nomRole = filter_var($_POST["nomRole"], FILTER_SANITIZE_SPECIAL_CHARS);
 
             $addRole = $pdo->prepare("INSERT INTO role (nomRole) VALUES (:nomRole)");
@@ -383,7 +383,7 @@ class CinemaController
 
         $listRoles = $pdo->query("SELECT id_role, nomRole FROM role");
 
-        if (isset($_POST["submit"])) {
+        if (isset ($_POST["submit"])) {
             $id_role = filter_var($_POST["id_role"], FILTER_SANITIZE_NUMBER_INT);
             $id_acteur = filter_var($_POST["id_acteur"], FILTER_SANITIZE_NUMBER_INT);
 
@@ -425,21 +425,26 @@ class CinemaController
         ");
         $prevListRealisateurs->execute(["id_film" => $id]);
 
-        $prevListGenres = $pdo->prepare("SELECT * 
-        FROM genre 
-        INNER JOIN classer ON genre.id_genre = classer.id_genre
+        $prevListGenres = $pdo->prepare("SELECT id_genre 
+        FROM classer 
         WHERE id_film = :id_film"
         );
         $prevListGenres->execute(["id_film" => $id]);
 
-        if (isset($_POST['submit'])) {
+        $idGenre = [];
+        foreach ($prevListGenres->fetchAll() as $genre) {
+            $idGenre[] = $genre["id_genre"];
+        }
+
+
+        if (isset ($_POST['submit'])) {
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $sortieFr = filter_var($_POST["sortieFr"], FILTER_SANITIZE_NUMBER_INT);
             $duree = filter_var($_POST["duree"], FILTER_SANITIZE_NUMBER_INT);
             $note = filter_var($_POST["note"], FILTER_SANITIZE_NUMBER_INT);
             $synopsis = filter_var($_POST["synopsis"], FILTER_SANITIZE_SPECIAL_CHARS);
             $id_realisateur = filter_var($_POST["id_realisateur"], FILTER_SANITIZE_NUMBER_INT);
-            $id_genre = filter_var($_POST["id_genre"], FILTER_SANITIZE_NUMBER_INT);
+            $id_genres = isset ($_POST["id_genre"]) ? $_POST["id_genre"] : array();
 
             $tmpName = $_FILES['file']['tmp_name'];
             $name = $_FILES['file']['name'];
@@ -482,10 +487,13 @@ class CinemaController
                     "id_film" => $id,
                 ]);
 
-                foreach ($id_genre as $genre) {
 
-                    $addGenre = $pdo->prepare("UPDATE classer
-                    SET id_film = :id_film, id_genre = :id_genre");
+                $delGenre = $pdo->prepare("DELETE FROM classer WHERE id_film = :id_film");
+                $delGenre->execute(["id_film" => $id]);
+
+                foreach ($id_genres as $genre) {
+
+                    $addGenre = $pdo->prepare("INSERT INTO classer (id_film, id_genre) VALUES (:id_film, :id_genre)");
                     $addGenre->execute([
                         "id_film" => $id,
                         "id_genre" => $genre,
@@ -494,6 +502,7 @@ class CinemaController
             } else {
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
+            header("Location:index.php?action=filmDetails&id=$id");
         }
 
         require "view/updateFilm.php";
