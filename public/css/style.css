@@ -375,10 +375,6 @@ nav ul li{
     width: min-content;
 }
 
-fieldset{
-    width: 735px;
-}
-
 footer{
     overflow-x: hidden;
 }

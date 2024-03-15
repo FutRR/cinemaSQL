@@ -48,6 +48,8 @@ ob_start();
         </div>
     </div>
 
+    <a class="add_btn" href="index.php?action=updateActeur&id=<?= $acteur["id_personne"] ?>">Modifier</a>
+
 
 
 </div>

@@ -508,4 +508,13 @@ class CinemaController
         require "view/updateFilm.php";
     }
 
+    public function updateActeur($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $prevInfos = $pdo->prepare("SELECT * FROM personne INNER JOIN acteur ON personne.id_personne = acteur.id_personne WHERE id_personne = :id_personne");
+        $prevInfos->execute(["id_personne" => $id]);
+
+    }
+
 }
