@@ -1,5 +1,7 @@
 <?php
 ob_start();
+
+$acteur = $prevActeurInfos->fetch();
 ?>
 
 <form action="index.php?action=updateActeur&id=<?= $_GET["id"] ?>" method="POST" enctype="multipart/form-data">
@@ -34,7 +36,7 @@ ob_start();
     <p>
         <label>
             Biographie :
-            <textarea name="biographie" rows="3"><?= $acteur["biographie"] ?>"</textarea>
+            <textarea name="biographie" rows="3"><?= $acteur["biographie"] ?></textarea>
         </label>
     </p>
 

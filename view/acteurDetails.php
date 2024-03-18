@@ -1,8 +1,8 @@
 <?php
 ob_start();
-?>
 
-<?php $acteur = $acteurDetails->fetch(); ?>
+$acteur = $acteurDetails->fetch();
+?>
 
 <div class="details_wrapper">
 
@@ -49,8 +49,6 @@ ob_start();
     </div>
 
     <a class="add_btn" href="index.php?action=updateActeur&id=<?= $acteur["id_personne"] ?>">Modifier</a>
-
-
 
 </div>
 

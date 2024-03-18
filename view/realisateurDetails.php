@@ -1,8 +1,8 @@
 <?php
 ob_start();
-?>
 
-<?php $realisateur = $realisateurDetails->fetch(); ?>
+$realisateur = $realisateurDetails->fetch();
+?>
 
 <div class="details_wrapper">
 
@@ -45,6 +45,7 @@ ob_start();
         </div>
     </div>
 
+    <a class="add_btn" href="index.php?action=updateRealisateur&id=<?= $realisateur["id_personne"] ?>">Modifier</a>
 
 </div>
 

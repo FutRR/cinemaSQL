@@ -81,6 +81,11 @@ if (isset ($_GET["action"])) {
             $ctrlCinema->updateActeur($id);
             break;
 
+        case "updateRealisateur":
+            $ctrlCinema->updateRealisateur($id);
+            break;
+
+
         default:
             $ctrlCinema->mainPage();
     }

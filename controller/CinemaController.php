@@ -512,9 +512,118 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
 
-        $prevInfos = $pdo->prepare("SELECT * FROM personne INNER JOIN acteur ON personne.id_personne = acteur.id_personne WHERE id_personne = :id_personne");
-        $prevInfos->execute(["id_personne" => $id]);
+        $prevActeurInfos = $pdo->prepare("SELECT * FROM personne WHERE id_personne = :id_personne");
+        $prevActeurInfos->execute(["id_personne" => $id]);
+
+        if (isset ($_POST['submit'])) {
+            $nom = filter_var($_POST["nom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $prenom = filter_var($_POST["prenom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $dateNaissance = filter_var($_POST["dateNaissance"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $sexe = filter_var($_POST["sexe"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $biographie = filter_var($_POST["biographie"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $tmpName = $_FILES['file']['tmp_name'];
+            $name = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $error = $_FILES['file']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+            //Tableau des extensions que l'on accepte
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            //Taille max que l'on accepte
+            $maxSize = 700000;
+
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                $file = $uniqueName . "." . $extension;
+                //$file = 5f586bf96dcd38.73540086.jpg
+                move_uploaded_file($tmpName, 'upload/personne' . $file);
+
+                $updateActor = $pdo->prepare("UPDATE personne 
+                SET nom = :nom,
+                prenom = :prenom,
+                dateNaissance = :dateNaissance,
+                sexe = :sexe,
+                biographie = :biographie
+                WHERE id_personne = :id_personne");
+
+                $updateActor->execute([
+                    "nom" => $nom,
+                    "prenom" => $prenom,
+                    "dateNaissance" => $dateNaissance,
+                    "sexe" => $sexe,
+                    "biographie" => $biographie,
+                    "id_personne" => $id
+                ]);
+
+            } else {
+                echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
+            }
+            header("Location:index.php?action=acteurDetails&id=$id");
+        }
+        require "view/updateActeur.php";
 
     }
 
+
+    public function updateRealisateur($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $prevRealisateurInfos = $pdo->prepare("SELECT * FROM personne WHERE id_personne = :id_personne");
+        $prevRealisateurInfos->execute(["id_personne" => $id]);
+
+        if (isset ($_POST['submit'])) {
+            $nom = filter_var($_POST["nom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $prenom = filter_var($_POST["prenom"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $dateNaissance = filter_var($_POST["dateNaissance"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $sexe = filter_var($_POST["sexe"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $biographie = filter_var($_POST["biographie"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $tmpName = $_FILES['file']['tmp_name'];
+            $name = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $error = $_FILES['file']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+            //Tableau des extensions que l'on accepte
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            //Taille max que l'on accepte
+            $maxSize = 700000;
+
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                $file = $uniqueName . "." . $extension;
+                //$file = 5f586bf96dcd38.73540086.jpg
+                move_uploaded_file($tmpName, 'upload/personne' . $file);
+
+                $updateRealisateur = $pdo->prepare("UPDATE personne 
+                SET nom = :nom,
+                prenom = :prenom,
+                dateNaissance = :dateNaissance,
+                sexe = :sexe,
+                biographie = :biographie
+                WHERE id_personne = :id_personne");
+
+                $updateRealisateur->execute([
+                    "nom" => $nom,
+                    "prenom" => $prenom,
+                    "dateNaissance" => $dateNaissance,
+                    "sexe" => $sexe,
+                    "biographie" => $biographie,
+                    "id_personne" => $id
+                ]);
+
+            } else {
+                echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
+            }
+            header("Location:index.php?action=realisateurDetails&id=$id");
+        }
+        require "view/updateRealisateur.php";
+
+    }
 }
