@@ -50,7 +50,8 @@ $acteur = $acteurDetails->fetch();
 
     <a class="add_btn" href="index.php?action=updateActeur&id=<?= $acteur["id_personne"] ?>">Modifier</a>
     <a class="del_btn"
-        href="index.php?action=deleteActeur&acteurId=<?= $acteur["id_acteur"] ?>&personneId=<?= $acteur['id_personne'] ?>">Supprimer</a>
+        href="index.php?action=deleteActeur&acteurId=<?= $acteur["id_acteur"] ?>&personneId=<?= $acteur['id_personne'] ?>">Supprimer
+    </a>
 
 
 </div>

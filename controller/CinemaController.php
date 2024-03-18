@@ -150,12 +150,16 @@ class CinemaController
     public function genreDetails($id)
     {
         $pdo = Connect::seConnecter();
-        $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre, genre.id_genre
+
+        $genreDetails = $pdo->prepare("SELECT * FROM genre WHERE id_genre = :id_genre");
+        $genreDetails->execute(["id_genre" => $id]);
+
+        $genreFilmsDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche
             FROM film
             INNER JOIN classer ON film.id_film = classer.id_film
             INNER JOIN genre ON classer.id_genre = genre.id_genre
             WHERE genre.id_genre = :id_genre");
-        $genreDetails->execute(["id_genre" => $id]);
+        $genreFilmsDetails->execute(["id_genre" => $id]);
 
         require "view/genres/genreDetails.php";
     }
@@ -638,16 +642,19 @@ class CinemaController
         if (isset ($_POST['submit'])) {
             $nomGenre = filter_var($_POST["nomGenre"], FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $updateGenre = $pdo->prepare("UPDATE personne 
-            SET nom = :nom
+            $updateGenre = $pdo->prepare("UPDATE genre 
+            SET nomGenre = :nomGenre
             WHERE id_genre = :id_genre");
 
-            $updateGenre->execute(["id_genre" => $id]);
+            $updateGenre->execute([
+                "nomGenre" => $nomGenre,
+                "id_genre" => $id
+            ]);
 
             header("Location:index.php?action=genreDetails&id=$id");
         }
 
-        require "view/genres/genreDetails.php";
+        require "view/genres/updateGenre.php";
     }
 
     public function deleteFilm($id)
@@ -718,6 +725,19 @@ class CinemaController
 
             header("Location:index.php?action=listRealisateurs");
         }
+    }
+
+    public function deleteGenre($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $deleteClasser = $pdo->prepare("DELETE FROM classer WHERE id_genre = :id_genre");
+        $deleteClasser->execute(["id_genre" => $id]);
+
+        $deleteGenre = $pdo->prepare("DELETE FROM genre WHERE id_genre = :id_genre");
+        $deleteGenre->execute(["id_genre" => $id]);
+
+        header("Location:index.php?action=listGenres");
     }
 
 

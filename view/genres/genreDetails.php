@@ -1,22 +1,25 @@
 <?php
 ob_start();
+
+$genre = $genreDetails->fetch();
 ?>
 
-<?php foreach ($genreDetails->fetchAll() as $genre) { ?>
-    <a href="index.php?action=filmDetails&id=<?= $genre['id_film'] ?>">
+<?php foreach ($genreFilmsDetails->fetchAll() as $films) { ?>
+
+    <a href="index.php?action=filmDetails&id=<?= $films['id_film'] ?>">
         <div class="list_wrapper">
-            <img class="list_img" src="upload/film/affiche/<?= $genre["affiche"] ?>" alt="affiche">
+            <img class="list_img" src="upload/film/affiche/<?= $films["affiche"] ?>" alt="affiche">
             <div class="list_infos">
                 <h3>
-                    <?= $genre["titre"] ?>
+                    <?= $films["titre"] ?>
                 </h3>
                 <p>
-                    <?= $genre["sortieFr"] ?>
+                    <?= $films["sortieFr"] ?>
                 </p>
                 <p class="note">
                     <i class="fa-regular fa-star"></i>
                     <span>
-                        <?= $genre["note"] ?>
+                        <?= $films["note"] ?>
                     </span> / 10
                 </p>
             </div>
@@ -25,6 +28,7 @@ ob_start();
 <?php } ?>
 
 <a class="add_btn" href="index.php?action=updateGenre&id=<?= $genre["id_genre"] ?>">Modifier</a>
+<a class="del_btn" href="index.php?action=deleteGenre&id=<?= $genre["id_genre"] ?>">Supprimer</a>
 
 <?php
 $titre = $genre["nomGenre"];

@@ -101,10 +101,13 @@ if (isset ($_GET["action"])) {
             $ctrlCinema->deleteRealisateur();
             break;
 
+        case "deleteGenre":
+            $ctrlCinema->deleteGenre($id);
+            break;
+
         case "deleteCasting":
             $ctrlCinema->deleteCasting();
             break;
-
 
         default:
             $ctrlCinema->mainPage();

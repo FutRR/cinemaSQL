@@ -8,7 +8,7 @@ $genre = $prevGenreInfos->fetch();
     <p>
         <label>
             Nom :
-            <input type="text" name="nom" value="<?= $genre["nomGenre"] ?>">
+            <input type="text" name="nomGenre" value="<?= $genre["nomGenre"] ?>">
         </label>
     </p>
 
