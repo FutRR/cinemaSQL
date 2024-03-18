@@ -1,5 +1,18 @@
 <?php
 ob_start();
+
+if (isset ($_SESSION['success_message'])) {
+    echo $_SESSION['success_message'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['success_message']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['error_message'])) {
+    echo $_SESSION['error_message'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['error_message']);
+}
 ?>
 
 <a class="add_btn" href="index.php?action=addGenre">Ajouter</a>

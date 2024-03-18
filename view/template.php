@@ -43,12 +43,52 @@
         <?= $content ?>
     </main>
 
+    <img class="waves bottom_waves" src="public/img/bottomWaves.svg" alt="">
+
     <footer>
-        <img class="waves bottom_waves" src="public/img/bottomWaves.svg" alt="">
+        <div class="follow">
+            <h3>Suivez Nous</h3>
+            <div class="icons">
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+
+        <div class="bar"></div>
+
+        <div class="newsletter">
+            <h3>Rejoignez la newsletter</h3>
+            <p>POUR RECEVOIR TOUTES LES DERNIERES INFOS SUR VOS FILMS PRÉFÉRÉS</p>
+            <p class="fake_btn">Rejoindre</p>
+        </div>
+
+        <div class="bar"></div>
+
+        <div class="contact">
+            <h3>Contact</h3>
+            <p>06 XX XX XX XX</p>
+            <p>contact@movies.com</p>
+        </div>
+
+        <div class="bar"></div>
+
+        <div class="legal">
+            <p>Mentions Légales</p>
+            <p>Politique de cookies</p>
+            <p>Conditions générales d'utilisation</p>
+            <p>Données Personnelles</p>
+        </div>
+
+        <div class="copyright">
+            <p>Copyright © 2024 - Tous droits réservés</p>
+        </div>
     </footer>
 
     <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/19a031a4c5.js" crossorigin="anonymous"></script>
     <script src="./public/js/script.js"></script>
 
 </body>

@@ -103,7 +103,6 @@ nav ul li{
 /* Burger Menu */
 
 .menuburger{
-
     cursor: pointer;
     z-index: 99;
     margin: 16px;
@@ -166,8 +165,13 @@ nav ul li{
     object-fit: cover;
     border-radius: 15px;
     border: 1px solid #fff;
-
+    transition: 500ms ease;
 }
+
+.card_wrapper  .card:hover img{
+    background-color: #05090d8e;
+}
+
 
 /* SWIPER */
 
@@ -389,6 +393,75 @@ nav ul li{
     z-index: 0;
 }
 
+.success_msg{
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #169e2d;
+    border-radius: 15px;
+    width: fit-content;
+    z-index: 5;
+}
+
+.error_msg{
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #9e1f16;
+    border-radius: 15px;
+    width: fit-content;
+    z-index: 5;
+
+}
+
+.bottom_waves{
+    z-index: 1;
+}
+
 footer{
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #274562;
+    z-index: -5;
+    margin-top: 500px;
+}
+
+footer > div{
+    margin: 10px;
+    z-index: 2;
+}
+
+i{
+    font-size: 40px;
+    margin: 0 5px;
+}
+
+.newsletter{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fake_btn{
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #05090D;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.copyright{
+    margin: 0;
+    width: 100%;
+    background-color: #05090D;
+}
+
+.bar{
+    border: solid #fff;
+    border-width: 0.01em;
+    width: 350px;
 }
