@@ -85,6 +85,15 @@ if (isset ($_GET["action"])) {
             $ctrlCinema->updateRealisateur($id);
             break;
 
+        case "deleteFilm":
+            $ctrlCinema->deleteFilm($id);
+            break;
+
+
+        case "deleteCasting":
+            $ctrlCinema->deleteCasting();
+            break;
+
 
         default:
             $ctrlCinema->mainPage();

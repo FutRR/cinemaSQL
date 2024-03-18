@@ -375,6 +375,13 @@ nav ul li{
     width: min-content;
 }
 
+.del_btn{
+    padding: 10px 20px;
+    background-color: #740c0c;
+    border-radius: 15px;
+    width: min-content;
+}
+
 footer{
     overflow-x: hidden;
 }

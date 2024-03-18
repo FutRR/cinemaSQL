@@ -85,7 +85,7 @@ class CinemaController
             WHERE id_film = :id_film");
         $filmDetails->execute(["id_film" => $id]);
 
-        $acteurs = $pdo->prepare("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole
+        $acteurs = $pdo->prepare("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, role.id_role, nomRole, acteur.id_acteur
             FROM casting
             INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
@@ -625,5 +625,38 @@ class CinemaController
         }
         require "view/updateRealisateur.php";
 
+    }
+
+    public function deleteFilm($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $deleteCasting = $pdo->prepare("DELETE FROM classer WHERE id_film = :id_film");
+        $deleteCasting->execute(["id_film" => $id]);
+
+        $deleteCasting = $pdo->prepare("DELETE FROM casting WHERE id_film = :id_film");
+        $deleteCasting->execute(["id_film" => $id]);
+
+        $deleteFilm = $pdo->prepare("DELETE FROM film WHERE id_film = :id_film");
+        $deleteFilm->execute(["id_film" => $id]);
+
+        header("Location:index.php?action=listFilms");
+
+    }
+
+
+    public function deleteCasting()
+    {
+        $pdo = Connect::seConnecter();
+
+        if ($_GET['filmId'] && $_GET['acteurId']) {
+            $filmId = $_GET['filmId'];
+            $acteurId = $_GET['acteurId'];
+
+            $deleteCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
+            $deleteCasting->execute(["id_acteur" => $acteurId]);
+
+            header("Location:index.php?action=filmDetails&id=$filmId");
+        }
     }
 }

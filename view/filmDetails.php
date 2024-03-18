@@ -59,6 +59,9 @@ $film = $filmDetails->fetch();
             <?php foreach ($acteurs->fetchAll() as $acteur) { ?>
                 <a href="index.php?action=acteurDetails&id=<?= $acteur["id_personne"] ?>">
                     <div class="acteur">
+                        <a class="del_btn"
+                            href="index.php?action=deleteCasting&acteurId=<?= $acteur["id_acteur"] ?>&filmId=<?= $film["id_film"] ?>">Supprimer</a>
+
                         <img src="upload/personne/<?= $acteur['image'] ?>" alt="">
                         <p>
                             <?= $acteur["personne"] ?>
@@ -75,6 +78,7 @@ $film = $filmDetails->fetch();
 </div>
 
 <a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
+<a class="del_btn" href="index.php?action=deleteFilm&id=<?= $film["id_film"] ?>">Supprimer</a>
 
 
 <?php
