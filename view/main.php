@@ -55,7 +55,7 @@ ob_start();
     <h3 class="box_title">Acteurs du moment</h3>
     <div class="card_wrapper">
         <?php foreach ($listCardActeur->fetchAll() as $cardActeur) { ?>
-            <a href="index.php?action=acteurDetails&id=<?= $cardActeur["id_personne"] ?>">
+            <a href="index.php?action=acteurDetails&id=<?= $cardActeur["id_acteur"] ?>">
                 <div class="card">
                     <img src="upload/personne/<?= $cardActeur["image"] ?>" alt="image Acteur">
                     <p><strong>

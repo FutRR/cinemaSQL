@@ -85,10 +85,21 @@ if (isset ($_GET["action"])) {
             $ctrlCinema->updateRealisateur($id);
             break;
 
+        case "updateGenre":
+            $ctrlCinema->updateGenre($id);
+            break;
+
         case "deleteFilm":
             $ctrlCinema->deleteFilm($id);
             break;
 
+        case "deleteActeur":
+            $ctrlCinema->deleteActeur();
+            break;
+
+        case "deleteRealisateur":
+            $ctrlCinema->deleteRealisateur();
+            break;
 
         case "deleteCasting":
             $ctrlCinema->deleteCasting();

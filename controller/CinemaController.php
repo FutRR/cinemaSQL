@@ -15,9 +15,9 @@ class CinemaController
         ORDER BY sortieFr 
         DESC LIMIT 3");
 
-        $listCardActeur = $pdo->query("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne 
-        FROM personne
-        INNER JOIN acteur ON personne.id_personne = acteur.id_personne
+        $listCardActeur = $pdo->query("SELECT acteur.id_acteur, personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne 
+        FROM acteur
+        INNER JOIN personne ON acteur.id_personne = personne.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
         INNER JOIN film ON casting.id_film = film.id_film
         ORDER BY sortieFr DESC
@@ -30,23 +30,23 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $listFilms = $pdo->query("SELECT * FROM film ORDER BY sortieFr");
-        require "view/listFilms.php";
+        require "view/films/listFilms.php";
     }
 
     //Lister des acteurs //
     public function listActeurs()
     {
         $pdo = Connect::seConnecter();
-        $listActeurs = $pdo->query("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
-        FROM personne
-        INNER JOIN acteur ON personne.id_personne = acteur.id_personne
+        $listActeurs = $pdo->query("SELECT acteur.id_acteur, personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
+        FROM acteur
+        INNER JOIN personne ON acteur.id_personne = personne.id_personne
         INNER JOIN casting ON acteur.id_acteur = casting.id_acteur
         INNER JOIN film ON casting.id_film = film.id_film
         GROUP BY acteur.id_acteur
         ORDER BY nom
         ");
 
-        require "view/listActeurs.php";
+        require "view/acteurs/listActeurs.php";
     }
 
     //Lister des genres//
@@ -55,23 +55,23 @@ class CinemaController
         $pdo = Connect::seConnecter();
         $listGenres = $pdo->query("SELECT * FROM genre");
 
-        require "view/listGenres.php";
+        require "view/genres/listGenres.php";
     }
 
     //Lister des Réalisateurs//
     public function listRealisateurs()
     {
         $pdo = Connect::seConnecter();
-        $listRealisateurs = $pdo->query("SELECT personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
-        FROM personne
-        INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        $listRealisateurs = $pdo->query("SELECT realisateur.id_realisateur, personne.id_personne, image, CONCAT(prenom, ' ', nom) AS personne, GROUP_CONCAT(CONCAT(film.id_film) SEPARATOR 'idEnd') AS idFilms, GROUP_CONCAT(CONCAT(film.titre) SEPARATOR 'titreEnd') AS titreFilms
+        FROM realisateur
+        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
         INNER JOIN film ON realisateur.id_realisateur = film.id_realisateur
         GROUP BY realisateur.id_realisateur
         ORDER BY nom
 
         ");
 
-        require "view/listRealisateurs.php";
+        require "view/realisateurs/listRealisateurs.php";
     }
 
     //Détails d'un film//
@@ -100,17 +100,18 @@ class CinemaController
             WHERE classer.id_film = :id_film");
         $genres->execute(["id_film" => $id]);
 
-        require "view/filmDetails.php";
+        require "view/films/filmDetails.php";
     }
 
     //Détails d'un acteur//
     public function acteurDetails($id)
     {
         $pdo = Connect::seConnecter();
-        $acteurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
-            FROM personne
-            WHERE id_personne = :id_personne");
-        $acteurDetails->execute(["id_personne" => $id]);
+        $acteurDetails = $pdo->prepare("SELECT *, personne.id_personne, CONCAT(personne.prenom, ' ', personne.nom) AS personne 
+            FROM acteur
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
+            WHERE id_acteur = :id_acteur");
+        $acteurDetails->execute(["id_acteur" => $id]);
 
         $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche, role.id_role, role.nomRole
             FROM film
@@ -118,45 +119,45 @@ class CinemaController
             INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
             INNER JOIN role ON casting.id_role = role.id_role
-            WHERE personne.id_personne = :id_personne");
-        $films->execute(["id_personne" => $id]);
+            WHERE acteur.id_acteur = :id_acteur");
+        $films->execute(["id_acteur" => $id]);
 
 
-        require "view/acteurDetails.php";
+        require "view/acteurs/acteurDetails.php";
     }
 
     //Détails d'un réalisateur//
     public function realisateurDetails($id)
     {
         $pdo = Connect::seConnecter();
-        $realisateurDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
-            FROM personne
-            WHERE id_personne = :id_personne");
-        $realisateurDetails->execute(["id_personne" => $id]);
+        $realisateurDetails = $pdo->prepare("SELECT *, realisateur.id_realisateur, CONCAT(prenom, ' ', nom) AS personne 
+            FROM realisateur
+            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+            WHERE id_realisateur = :id_realisateur");
+        $realisateurDetails->execute(["id_realisateur" => $id]);
 
         $films = $pdo->prepare("SELECT film.id_film, film.titre, film.affiche
             FROM film
             INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
-            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
-            WHERE personne.id_personne = :id_personne");
-        $films->execute(["id_personne" => $id]);
+            WHERE realisateur.id_realisateur = :id_realisateur");
+        $films->execute(["id_realisateur" => $id]);
 
 
-        require "view/realisateurDetails.php";
+        require "view/realisateurs/realisateurDetails.php";
     }
 
     //Détails d'un genre//
     public function genreDetails($id)
     {
         $pdo = Connect::seConnecter();
-        $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre
+        $genreDetails = $pdo->prepare("SELECT film.id_film, film.titre, film.sortieFr, film.note, film.affiche, classer.id_genre, genre.nomGenre, genre.id_genre
             FROM film
             INNER JOIN classer ON film.id_film = classer.id_film
             INNER JOIN genre ON classer.id_genre = genre.id_genre
             WHERE genre.id_genre = :id_genre");
         $genreDetails->execute(["id_genre" => $id]);
 
-        require "view/genreDetails.php";
+        require "view/genres/genreDetails.php";
     }
 
     //Ajout d'un film//
@@ -173,7 +174,7 @@ class CinemaController
             $addGenre->execute();
             header("Location:index.php?action=listGenres");
         }
-        require "view/addGenre.php";
+        require "view/genres/addGenre.php";
     }
 
     //Ajout d'un Réalisateur//
@@ -228,7 +229,7 @@ class CinemaController
             }
             header("Location:index.php?action=listRealisateurs");
         }
-        require "view/addRealisateur.php";
+        require "view/realisateurs/addRealisateur.php";
     }
 
     //Ajout d'un Acteur//
@@ -283,7 +284,7 @@ class CinemaController
             }
             header("Location:index.php?action=listActeurs");
         }
-        require "view/addActeur.php";
+        require "view/acteurs/addActeur.php";
     }
 
     //Ajout d'un film//
@@ -357,7 +358,7 @@ class CinemaController
             }
             header("Location:index.php?action=listFilms");
         }
-        require "view/addFilm.php";
+        require "view/films/addFilm.php";
     }
 
     //Ajout d'un role//
@@ -370,7 +371,7 @@ class CinemaController
             $addRole = $pdo->prepare("INSERT INTO role (nomRole) VALUES (:nomRole)");
             $addRole->execute(["nomRole" => $nomRole]);
         }
-        require "view/addRole.php";
+        require "view/casting/addRole.php";
     }
 
     //Ajout d'un casting//
@@ -400,7 +401,7 @@ class CinemaController
         }
 
 
-        require "view/addCasting.php";
+        require "view/casting/addCasting.php";
     }
 
     public function updateFilm($id)
@@ -505,7 +506,7 @@ class CinemaController
             header("Location:index.php?action=filmDetails&id=$id");
         }
 
-        require "view/updateFilm.php";
+        require "view/films/updateFilm.php";
     }
 
     public function updateActeur($id)
@@ -563,7 +564,7 @@ class CinemaController
             }
             header("Location:index.php?action=acteurDetails&id=$id");
         }
-        require "view/updateActeur.php";
+        require "view/acteurs/updateActeur.php";
 
     }
 
@@ -623,16 +624,38 @@ class CinemaController
             }
             header("Location:index.php?action=realisateurDetails&id=$id");
         }
-        require "view/updateRealisateur.php";
+        require "view/realisateurs/updateRealisateur.php";
 
+    }
+
+    public function updateGenre($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        $prevGenreInfos = $pdo->prepare("SELECT * FROM genre WHERE id_genre = :id_genre");
+        $prevGenreInfos->execute(["id_genre" => $id]);
+
+        if (isset ($_POST['submit'])) {
+            $nomGenre = filter_var($_POST["nomGenre"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $updateGenre = $pdo->prepare("UPDATE personne 
+            SET nom = :nom
+            WHERE id_genre = :id_genre");
+
+            $updateGenre->execute(["id_genre" => $id]);
+
+            header("Location:index.php?action=genreDetails&id=$id");
+        }
+
+        require "view/genres/genreDetails.php";
     }
 
     public function deleteFilm($id)
     {
         $pdo = Connect::seConnecter();
 
-        $deleteCasting = $pdo->prepare("DELETE FROM classer WHERE id_film = :id_film");
-        $deleteCasting->execute(["id_film" => $id]);
+        $deleteClasser = $pdo->prepare("DELETE FROM classer WHERE id_film = :id_film");
+        $deleteClasser->execute(["id_film" => $id]);
 
         $deleteCasting = $pdo->prepare("DELETE FROM casting WHERE id_film = :id_film");
         $deleteCasting->execute(["id_film" => $id]);
@@ -641,7 +664,60 @@ class CinemaController
         $deleteFilm->execute(["id_film" => $id]);
 
         header("Location:index.php?action=listFilms");
+    }
 
+    public function deleteActeur()
+    {
+        $pdo = Connect::seConnecter();
+
+        if ($_GET['personneId'] && $_GET['acteurId']) {
+            $personneId = $_GET['personneId'];
+            $acteurId = $_GET['acteurId'];
+
+            $deleteCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
+            $deleteCasting->execute(["id_acteur" => $acteurId]);
+
+            $deleteActeur = $pdo->prepare("DELETE FROM acteur WHERE id_personne = :id_personne");
+            $deleteActeur->execute(["id_personne" => $personneId]);
+
+            $deletePersonne = $pdo->prepare("DELETE FROM personne WHERE id_personne = :id_personne");
+            $deletePersonne->execute(["id_personne" => $personneId]);
+
+            header("Location:index.php?action=listActeurs");
+        }
+    }
+
+    public function deleteRealisateur()
+    {
+        $pdo = Connect::seConnecter();
+
+        if ($_GET['personneId'] && $_GET['realisateurId']) {
+            $personneId = $_GET['personneId'];
+            $realisateurId = $_GET['realisateurId'];
+
+            $filmSelect = $pdo->prepare("SELECT * FROM film WHERE id_realisateur = :id_realisateur");
+            $filmSelect->execute(["id_realisateur" => $realisateurId]);
+
+            foreach ($filmSelect->fetchAll() as $film) {
+                $deleteCasting = $pdo->prepare("DELETE FROM casting WHERE id_film = :id_film");
+                $deleteCasting->execute(["id_film" => $film['id_film']]);
+
+                $deleteClasser = $pdo->prepare("DELETE FROM classer WHERE id_film = :id_film");
+                $deleteClasser->execute(["id_film" => $film['id_film']]);
+            }
+
+            $deleteFilm = $pdo->prepare("DELETE FROM film WHERE id_realisateur = :id_realisateur");
+            $deleteFilm->execute(["id_realisateur" => $realisateurId]);
+
+            $deleteRealisateur = $pdo->prepare("DELETE FROM realisateur WHERE id_realisateur = :id_realisateur");
+            $deleteRealisateur->execute(["id_realisateur" => $realisateurId]);
+
+            $deletePersonne = $pdo->prepare("DELETE FROM personne WHERE id_personne = :id_personne");
+            $deletePersonne->execute(["id_personne" => $personneId]);
+
+
+            header("Location:index.php?action=listRealisateurs");
+        }
     }
 
 

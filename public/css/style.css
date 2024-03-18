@@ -317,13 +317,17 @@ nav ul li{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color: #101C28;
     border-radius: 15px;
     margin: 10px;
     padding: 20px;
     width: fit-content;
     min-width: 185px;
+}
 
+.acteur a{
+    text-align: center;
 }
 
 .acteur img{
@@ -369,17 +373,20 @@ nav ul li{
 /* Ajouts */
 
 .add_btn{
+    margin: 5px;
     padding: 10px 20px;
     background-color: #101C28;
     border-radius: 15px;
-    width: min-content;
+    width: fit-content;
 }
 
 .del_btn{
+    margin: 5px;
     padding: 10px 20px;
     background-color: #740c0c;
     border-radius: 15px;
-    width: min-content;
+    width: fit-content;
+    z-index: 0;
 }
 
 footer{
