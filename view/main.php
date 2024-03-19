@@ -2,24 +2,20 @@
 ob_start();
 ?>
 
-<div class="box_wrapper">
-    <h3 class="box_title">À la une</h3>
-    <div class="card_wrapper">
-        <?php foreach ($listCardFilm->fetchAll() as $cardFilm) { ?>
-            <a href="index.php?action=filmDetails&id=<?= $cardFilm["id_film"] ?>">
+<h3 class="box_title">À la une</h3>
+<div class="swiper film-swiper">
+    <div class="swiper-wrapper film-wrapper">
 
-                <div class="card">
+        <?php foreach ($listCardFilm->fetchAll() as $cardFilm) { ?>
+            <div class="swiper-slide film-slide">
+                <a href="index.php?action=filmDetails&id=<?= $cardFilm["id_film"] ?>">
                     <img src="upload/film/affiche/<?= $cardFilm["affiche"] ?>" alt="affiche film">
-                    <p><strong>
-                            <?= $cardFilm["titre"] ?>
-                        </strong></p>
-                    <p><strong>
-                            <?= $cardFilm["sortieFr"] ?>
-                        </strong></p>
-                </div>
-            </a>
+                </a>
+            </div>
         <?php } ?>
+
     </div>
+    <div class="swiper-pagination"></div>
 </div>
 
 
@@ -27,19 +23,18 @@ ob_start();
 
     <h3>Nos Classiques</h3>
     <!-- Slider main container -->
-    <div class="swiper">
+    <div class="swiper scene-swiper">
 
         <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper scene-wrapper">
             <!-- Slides -->
-            <div class="swiper-slide"><img src="upload/film/scenes/scene-la-haine.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="upload/film/scenes/scene-star-wars-4.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="upload/film/scenes/scene-kill-bill-1.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="upload/film/scenes/affranchis-scene.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="upload/film/scenes/scene-fmj.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-la-haine.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-star-wars-4.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-kill-bill-1.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/affranchis-scene.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-fmj.jpg" alt=""></div>
         </div>
 
-        <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
 
 

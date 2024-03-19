@@ -81,6 +81,11 @@ class CinemaController
     public function filmDetails($id)
     {
         $pdo = Connect::seConnecter();
+
+        if (!$this->filmId($id)) {
+            require "view/nullId.php";
+        }
+
         $filmDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
             FROM film
             INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
@@ -110,6 +115,11 @@ class CinemaController
     public function acteurDetails($id)
     {
         $pdo = Connect::seConnecter();
+
+        if (!$this->acteurId($id)) {
+            require "view/nullId.php";
+        }
+
         $acteurDetails = $pdo->prepare("SELECT *, personne.id_personne, CONCAT(personne.prenom, ' ', personne.nom) AS personne 
             FROM acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
@@ -133,6 +143,11 @@ class CinemaController
     public function realisateurDetails($id)
     {
         $pdo = Connect::seConnecter();
+
+        if (!$this->realisateurId($id)) {
+            require "view/nullId.php";
+        }
+
         $realisateurDetails = $pdo->prepare("SELECT *, realisateur.id_realisateur, CONCAT(prenom, ' ', nom) AS personne 
             FROM realisateur
             INNER JOIN personne ON realisateur.id_personne = personne.id_personne
@@ -153,6 +168,10 @@ class CinemaController
     public function genreDetails($id)
     {
         $pdo = Connect::seConnecter();
+
+        if (!$this->genreId($id)) {
+            require "view/nullId.php";
+        }
 
         $genreDetails = $pdo->prepare("SELECT * FROM genre WHERE id_genre = :id_genre");
         $genreDetails->execute(["id_genre" => $id]);
@@ -777,4 +796,68 @@ class CinemaController
             header("Location:index.php?action=filmDetails&id=$filmId");
         }
     }
+
+    // Si l'id de l'url n'existe pas //
+    private function filmId($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        // Préparez la requête SQL
+        $filmId = $pdo->prepare("SELECT COUNT(*) FROM film WHERE id_film = :id_film");
+        $filmId->execute(["id_film" => $id]);
+
+        // Récupérez le nombre de lignes correspondant à l'ID
+        $rowCount = $filmId->fetchColumn();
+
+        // Si le nombre de lignes est supérieur à zéro, l'ID existe
+        return $rowCount > 0;
+    }
+
+    private function acteurId($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        // Préparez la requête SQL
+        $acteurId = $pdo->prepare("SELECT COUNT(*) FROM acteur WHERE id_acteur = :id_acteur");
+        $acteurId->execute(["id_acteur" => $id]);
+
+        // Récupérez le nombre de lignes correspondant à l'ID
+        $rowCount = $acteurId->fetchColumn();
+
+        // Si le nombre de lignes est supérieur à zéro, l'ID existe
+        return $rowCount > 0;
+    }
+
+    private function realisateurId($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        // Préparez la requête SQL
+        $realisateurId = $pdo->prepare("SELECT COUNT(*) FROM realisateur WHERE id_realisateur = :id_realisateur");
+        $realisateurId->execute(["id_realisateur" => $id]);
+
+        // Récupérez le nombre de lignes correspondant à l'ID
+        $rowCount = $realisateurId->fetchColumn();
+
+        // Si le nombre de lignes est supérieur à zéro, l'ID existe
+        return $rowCount > 0;
+    }
+
+    private function genreId($id)
+    {
+        $pdo = Connect::seConnecter();
+
+        // Préparez la requête SQL
+        $genreId = $pdo->prepare("SELECT COUNT(*) FROM genre WHERE id_genre = :id_genre");
+        $genreId->execute(["id_genre" => $id]);
+
+        // Récupérez le nombre de lignes correspondant à l'ID
+        $rowCount = $genreId->fetchColumn();
+
+        // Si le nombre de lignes est supérieur à zéro, l'ID existe
+        return $rowCount > 0;
+    }
+
+
+
 }
