@@ -12,7 +12,7 @@ menuburger.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const scene_swiper = new Swiper(".swiper", {
+  const scene_swiper = new Swiper(".scene-swiper", {
     // Optional parameters
     direction: "horizontal",
     loop: true,
@@ -23,11 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
       clickable: true,
     },
 
-    // autoplay: {
-    //   delay: 3000,
-    //   disableOnInteraction: false,
-    //   pauseOnMouseEnter: true,
-    // },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
 
     // Navigation arrows
     navigation: {
@@ -56,18 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
-    },
-
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: false,
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
     },
   });
 });

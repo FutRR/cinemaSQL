@@ -15,6 +15,10 @@ ob_start();
                 <p>
                     <?= $film["sortieFr"] ?>
                 </p>
+                <p>
+                    <?= $film["dureeFormat"] ?>
+                </p>
+
                 <p class="note">
                     <i class="fa-regular fa-star"></i>
                     <span>

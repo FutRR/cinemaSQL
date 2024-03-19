@@ -18,7 +18,7 @@ $film = $filmDetails->fetch();
 
             <p>
                 <?= $film["sortieFr"] ?> |
-                <?= $film["duree"] ?> minutes
+                <?= $film["dureeFormat"] ?>
             </p>
 
             <p class="note">
@@ -78,10 +78,14 @@ $film = $filmDetails->fetch();
         </div>
     </div>
 
+    <div class="btns">
+        <a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
+        <a class="del_btn" href="index.php?action=deleteFilm&id=<?= $film["id_film"] ?>">Supprimer</a>
+    </div>
+
+
 </div>
 
-<a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
-<a class="del_btn" href="index.php?action=deleteFilm&id=<?= $film["id_film"] ?>">Supprimer</a>
 
 
 <?php

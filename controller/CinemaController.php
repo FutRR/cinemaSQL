@@ -32,7 +32,7 @@ class CinemaController
     public function listFilms()
     {
         $pdo = Connect::seConnecter();
-        $listFilms = $pdo->query("SELECT * FROM film ORDER BY sortieFr");
+        $listFilms = $pdo->query("SELECT *, REPLACE(SUBSTRING(SEC_TO_TIME(duree*60), 2, 4), ':', 'h') AS dureeFormat FROM film ORDER BY sortieFr");
         require "view/films/listFilms.php";
     }
 
@@ -86,7 +86,7 @@ class CinemaController
             require "view/nullId.php";
         }
 
-        $filmDetails = $pdo->prepare("SELECT *, CONCAT(prenom, ' ', nom) AS personne 
+        $filmDetails = $pdo->prepare("SELECT *, REPLACE(SUBSTRING(SEC_TO_TIME(duree*60), 2, 4), ':', 'h') AS dureeFormat, CONCAT(prenom, ' ', nom) AS personne 
             FROM film
             INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
             INNER JOIN personne ON realisateur.id_personne = personne.id_personne
@@ -120,7 +120,7 @@ class CinemaController
             require "view/nullId.php";
         }
 
-        $acteurDetails = $pdo->prepare("SELECT *, personne.id_personne, CONCAT(personne.prenom, ' ', personne.nom) AS personne 
+        $acteurDetails = $pdo->prepare("SELECT *, personne.id_personne, CONCAT(personne.prenom, ' ', personne.nom) AS personne, REPLACE(sexe, 'M', 'Homme'), REPLACE(sexe, 'F', 'Femme')
             FROM acteur
             INNER JOIN personne ON acteur.id_personne = personne.id_personne
             WHERE id_acteur = :id_acteur");
@@ -148,7 +148,7 @@ class CinemaController
             require "view/nullId.php";
         }
 
-        $realisateurDetails = $pdo->prepare("SELECT *, realisateur.id_realisateur, CONCAT(prenom, ' ', nom) AS personne 
+        $realisateurDetails = $pdo->prepare("SELECT *, realisateur.id_realisateur, CONCAT(prenom, ' ', nom) AS personne, REPLACE(sexe, 'M', 'Homme'), REPLACE(sexe, 'F', 'Femme')
             FROM realisateur
             INNER JOIN personne ON realisateur.id_personne = personne.id_personne
             WHERE id_realisateur = :id_realisateur");
@@ -449,6 +449,8 @@ class CinemaController
         require "view/casting/addCasting.php";
     }
 
+    // Modifier un film
+
     public function updateFilm($id)
     {
         $pdo = Connect::seConnecter();
@@ -554,6 +556,8 @@ class CinemaController
         require "view/films/updateFilm.php";
     }
 
+    // Modifier un acteur
+
     public function updateActeur($id)
     {
         $pdo = Connect::seConnecter();
@@ -613,6 +617,7 @@ class CinemaController
 
     }
 
+    // Modifier un realisateur
 
     public function updateRealisateur($id)
     {
@@ -673,6 +678,7 @@ class CinemaController
 
     }
 
+    // Modifier un genre
     public function updateGenre($id)
     {
         $pdo = Connect::seConnecter();
@@ -698,6 +704,7 @@ class CinemaController
         require "view/genres/updateGenre.php";
     }
 
+    // Supprimer un film
     public function deleteFilm($id)
     {
         $pdo = Connect::seConnecter();
@@ -713,6 +720,8 @@ class CinemaController
 
         header("Location:index.php?action=listFilms");
     }
+
+    // Supprimer un acteur
 
     public function deleteActeur()
     {
@@ -734,6 +743,8 @@ class CinemaController
             header("Location:index.php?action=listActeurs");
         }
     }
+
+    // Supprimer un realisateur
 
     public function deleteRealisateur()
     {
@@ -768,6 +779,8 @@ class CinemaController
         }
     }
 
+    // Supprimer un genre
+
     public function deleteGenre($id)
     {
         $pdo = Connect::seConnecter();
@@ -781,6 +794,8 @@ class CinemaController
         header("Location:index.php?action=listGenres");
     }
 
+
+    // Supprimer un casting
 
     public function deleteCasting()
     {

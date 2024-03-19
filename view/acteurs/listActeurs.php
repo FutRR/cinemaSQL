@@ -18,8 +18,11 @@ ob_start();
                     $vals = explode('titreEnd', $acteur['titreFilms']);
 
                     $results = array_combine($keys, $vals);
+                    $i = 1;
                     foreach ($results as $id => $film) {
                         echo "<a class='list_links' href='index.php?action=filmDetails&id={$id}'> $film <br></a>";
+                        if (++$id < 2)
+                            break;
                     } ?>
                 </p>
             </div>

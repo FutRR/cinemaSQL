@@ -33,6 +33,7 @@ ob_start();
             <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-kill-bill-1.jpg" alt=""></div>
             <div class="swiper-slide scene-slide"><img src="upload/film/scenes/affranchis-scene.jpg" alt=""></div>
             <div class="swiper-slide scene-slide"><img src="upload/film/scenes/scene-fmj.jpg" alt=""></div>
+            <div class="swiper-slide scene-slide"><img src="upload/film/scenes/blade-runner-2049-joi.jpg" alt=""></div>
         </div>
 
         <div class="swiper-pagination"></div>

@@ -21,12 +21,6 @@ ob_start();
 
     <p>
         <label>
-            <a class="add_btn" href="index.php?action=addRole">Créer un role</a>
-        </label>
-    </p>
-
-    <p>
-        <label>
             Acteur :
             <select name="id_acteur">
                 <option value="">-- Acteur --</option>
@@ -39,9 +33,10 @@ ob_start();
         </label>
     </p>
 
-    <p>
+    <div class='btns'>
         <input type="submit" name="submit" value="Ajouter">
-    </p>
+        <a class="add_btn" href="index.php?action=addRole">Créer un role</a>
+    </div>
 
 </form>
 
