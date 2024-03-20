@@ -522,7 +522,7 @@ class CinemaController
                 //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                 $file = $uniqueName . "." . $extension;
                 //$file = 5f586bf96dcd38.73540086.jpg
-                move_uploaded_file($tmpName, 'upload/film/affiche/' . $file);
+                $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "upload/film/affiche/$uniqueName.webp");
 
 
                 $updateFilm = $pdo->prepare("UPDATE film 
