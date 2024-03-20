@@ -18,6 +18,13 @@ if (isset ($_SESSION['message'])) {
 $acteur = $acteurDetails->fetch();
 ?>
 
+<div class="btns">
+    <a class="add_btn" href="index.php?action=updateActeur&id=<?= $acteur["id_personne"] ?>">Modifier</a>
+    <a class="del_btn"
+        href="index.php?action=deleteActeur&acteurId=<?= $acteur["id_acteur"] ?>&personneId=<?= $acteur['id_personne'] ?>">Supprimer
+    </a>
+</div>
+
 <div class="details_wrapper">
 
     <div class="details_infos">
@@ -61,12 +68,6 @@ $acteur = $acteurDetails->fetch();
             <?php } ?>
         </div>
     </div>
-
-    <a class="add_btn" href="index.php?action=updateActeur&id=<?= $acteur["id_personne"] ?>">Modifier</a>
-    <a class="del_btn"
-        href="index.php?action=deleteActeur&acteurId=<?= $acteur["id_acteur"] ?>&personneId=<?= $acteur['id_personne'] ?>">Supprimer
-    </a>
-
 
 </div>
 

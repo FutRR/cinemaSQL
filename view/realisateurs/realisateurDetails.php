@@ -4,6 +4,13 @@ ob_start();
 $realisateur = $realisateurDetails->fetch();
 ?>
 
+<div class="btns">
+    <a class="add_btn" href="index.php?action=updateRealisateur&id=<?= $realisateur["id_personne"] ?>">Modifier</a>
+    <a class="del_btn"
+        href="index.php?action=deleteRealisateur&realisateurId=<?= $realisateur["id_realisateur"] ?>&personneId=<?= $realisateur['id_personne'] ?>">Supprimer
+        (films compris)</a>
+</div>
+
 <div class="details_wrapper">
 
     <div class="details_infos">
@@ -44,11 +51,6 @@ $realisateur = $realisateurDetails->fetch();
             <?php } ?>
         </div>
     </div>
-
-    <a class="add_btn" href="index.php?action=updateRealisateur&id=<?= $realisateur["id_personne"] ?>">Modifier</a>
-    <a class="del_btn"
-        href="index.php?action=deleteRealisateur&realisateurId=<?= $realisateur["id_realisateur"] ?>&personneId=<?= $realisateur['id_personne'] ?>">Supprimer
-        (films compris)</a>
 
 
 </div>

@@ -520,9 +520,8 @@ class CinemaController
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $uniqueName = uniqid('', true);
                 //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
-                $file = $uniqueName . "." . $extension;
-                //$file = 5f586bf96dcd38.73540086.jpg
                 $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "upload/film/affiche/$uniqueName.webp");
+                //imagewebp donne au fichier un format webp
 
 
                 $updateFilm = $pdo->prepare("UPDATE film 
@@ -541,7 +540,7 @@ class CinemaController
                     "duree" => $duree,
                     "note" => $note,
                     "synopsis" => $synopsis,
-                    "affiche" => $file,
+                    "affiche" => $uniqueName . ".webp",
                     "id_realisateur" => $id_realisateur,
                     "id_film" => $id,
                 ]);
@@ -588,6 +587,16 @@ class CinemaController
             $sexe = filter_var($_POST["sexe"], FILTER_SANITIZE_SPECIAL_CHARS);
             $biographie = filter_var($_POST["biographie"], FILTER_SANITIZE_SPECIAL_CHARS);
 
+            $getFile = $pdo->prepare("SELECT image FROM personne WHERE id_personne = :id_personne");
+            $getFile->execute(["id_personne" => $id]);
+
+            $unsetFile = $getFile->fetch();
+
+            unlink("upload/personne/$unsetFile[0]");
+
+            $deleteFile = $pdo->prepare("UPDATE personne SET image = null WHERE id_personne = :id_personne");
+            $deleteFile->execute(["id_personne" => $id]);
+
             $tmpName = $_FILES['file']['tmp_name'];
             $name = $_FILES['file']['name'];
             $size = $_FILES['file']['size'];
@@ -603,16 +612,16 @@ class CinemaController
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $uniqueName = uniqid('', true);
                 //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
-                $file = $uniqueName . "." . $extension;
-                //$file = 5f586bf96dcd38.73540086.jpg
-                move_uploaded_file($tmpName, 'upload/personne' . $file);
+                $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "upload/personne/$uniqueName.webp");
+                //imagewebp donne au fichier un format webp
 
                 $updateActor = $pdo->prepare("UPDATE personne 
                 SET nom = :nom,
                 prenom = :prenom,
                 dateNaissance = :dateNaissance,
                 sexe = :sexe,
-                biographie = :biographie
+                biographie = :biographie,
+                image = :image
                 WHERE id_personne = :id_personne");
 
                 $updateActor->execute([
@@ -621,6 +630,7 @@ class CinemaController
                     "dateNaissance" => $dateNaissance,
                     "sexe" => $sexe,
                     "biographie" => $biographie,
+                    "image" => $uniqueName . ".webp",
                     "id_personne" => $id
                 ]);
 
@@ -657,26 +667,40 @@ class CinemaController
             $size = $_FILES['file']['size'];
             $error = $_FILES['file']['error'];
 
+            $getFile = $pdo->prepare("SELECT image FROM personne WHERE id_personne = :id_personne");
+            $getFile->execute(["id_personne" => $id]);
+
+            $unsetFile = $getFile->fetch();
+
+
+            if (isset ($unsetFile[0]) && !empty ($unsetFile[0])) {
+
+                unlink("upload/personne/$unsetFile[0]");
+            }
+
+            $deleteFile = $pdo->prepare("UPDATE personne SET image = null WHERE id_personne = :id_personne");
+            $deleteFile->execute(["id_personne" => $id]);
+
             $tabExtension = explode('.', $name);
             $extension = strtolower(end($tabExtension));
             //Tableau des extensions que l'on accepte
             $extensions = ['jpg', 'png', 'jpeg', 'gif'];
             //Taille max que l'on accepte
-            $maxSize = 700000;
+            $maxSize = 2000000;
 
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $uniqueName = uniqid('', true);
                 //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
-                $file = $uniqueName . "." . $extension;
-                //$file = 5f586bf96dcd38.73540086.jpg
-                move_uploaded_file($tmpName, 'upload/personne' . $file);
+                $file = imagewebp(imagecreatefromstring(file_get_contents($tmpName)), "upload/personne/$uniqueName.webp");
+                //imagewebp donne au fichier un format webp
 
                 $updateRealisateur = $pdo->prepare("UPDATE personne 
                 SET nom = :nom,
                 prenom = :prenom,
                 dateNaissance = :dateNaissance,
                 sexe = :sexe,
-                biographie = :biographie
+                biographie = :biographie,
+                image = :image
                 WHERE id_personne = :id_personne");
 
                 $updateRealisateur->execute([
@@ -685,6 +709,7 @@ class CinemaController
                     "dateNaissance" => $dateNaissance,
                     "sexe" => $sexe,
                     "biographie" => $biographie,
+                    "image" => $uniqueName . ".webp",
                     "id_personne" => $id
                 ]);
 

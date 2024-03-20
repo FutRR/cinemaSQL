@@ -4,6 +4,11 @@ ob_start();
 $film = $filmDetails->fetch();
 ?>
 
+<div class="btns">
+    <a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
+    <a class="del_btn" href="index.php?action=deleteFilm&id=<?= $film["id_film"] ?>">Supprimer</a>
+</div>
+
 <div class="details_wrapper">
 
     <div class="details_infos">
@@ -77,12 +82,6 @@ $film = $filmDetails->fetch();
             <?php } ?>
         </div>
     </div>
-
-    <div class="btns">
-        <a class="add_btn" href="index.php?action=updateFilm&id=<?= $film["id_film"] ?>">Modifier</a>
-        <a class="del_btn" href="index.php?action=deleteFilm&id=<?= $film["id_film"] ?>">Supprimer</a>
-    </div>
-
 
 </div>
 

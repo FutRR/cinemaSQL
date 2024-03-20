@@ -17,12 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     direction: "horizontal",
     loop: true,
 
-    // If we need pagination
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-
     autoplay: {
       delay: 3000,
       disableOnInteraction: false,

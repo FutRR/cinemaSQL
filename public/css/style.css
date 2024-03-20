@@ -35,7 +35,7 @@ body{
 }
 
 main{
-    margin: 150px 150px 50px;
+    margin: 150px 120px 50px;
     height: max-content;
 }
 
@@ -82,8 +82,8 @@ nav ul li{
 
 .logo{
     margin-top: 16px;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
     /* Burger Menu */
@@ -121,7 +121,7 @@ nav ul li{
 /* SVGs */
 
 .waves{
-    width: 100%;
+    width: 100vw;
     height: 580px;
     position: absolute;
     z-index: -1;
@@ -131,20 +131,19 @@ nav ul li{
 
 /* Main Page */
 
-.box_wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1;
-    padding: 40px;
-}
-
-.box_wrapper h3{
+.slider_title{
     font-size: 32px;
 }
 
 
     /* SWIPER */
+
+    .sliders{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
     .slider_wrapper{
         display: flex;
@@ -152,25 +151,27 @@ nav ul li{
         justify-content: center;
         align-items: center;
         margin-bottom: 20px;
-    }
-
-    .slider_wrapper h3{
-        font-size: 32px;
+        width: 80vw;
     }
 
 
         /* SCENE */
         .scene-swiper {
-            width: 1000px;
-            height: 500px;
+            width: 100%;
+            height: 80%;
             border-radius: 15px;
-            padding: 20px;
         }
 
+        .scene-wrapper{
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+        }
 
         .scene-slide img{
             width: 100%;
             height: 100%;
+
             object-fit: cover;
             border-radius: 15px;
         }
@@ -178,9 +179,15 @@ nav ul li{
 
         /* COVERFLOW */
 
+        .coverflow-slide{
+            width: 100%;
+            height: 80%;
+            font-size: 12px;
+        }
+
         .coverflow-slide img {
-            width: 300px;
-            height: 400px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -514,14 +521,14 @@ i{
 .bar{
     border: solid #fff;
     border-width: 0.01em;
-    width: 350px;
+    width: 80vw;
 }
 
 
 
 /* Desktop */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
     
     /* NAVBAR */
 
@@ -536,6 +543,33 @@ i{
 
 
     .waves{
-        width: 100%;
+        width: 100vw;
     }
+
+
+/* Main Page */
+
+    /* SWIPER */
+
+    .slider_wrapper{
+    }
+
+
+        /* SCENE */
+        .scene-swiper {
+        }
+
+        .scene-slide{
+            height: 40vh;
+        }
+
+
+        .scene-slide img{
+            object-fit: cover;
+        }
+
+
+        /* COVERFLOW */
+
+
 }
