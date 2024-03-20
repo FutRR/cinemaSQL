@@ -86,7 +86,6 @@ $prevFilm = $prevFilmInfo->fetch();
 </form>
 
 <?php
-var_dump($listGenres->fetchAll());
 $titre = "Modification d'un film";
 $titre_secondaire = "Modification d'un film";
 $content = ob_get_clean();

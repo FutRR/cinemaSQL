@@ -125,13 +125,12 @@ nav ul li{
     height: 580px;
     position: absolute;
     z-index: -1;
-    overflow-x: hidden;
-
 }
 
 
 
 /* Main Page */
+
 .box_wrapper{
     display: flex;
     flex-direction: column;
@@ -144,90 +143,46 @@ nav ul li{
     font-size: 32px;
 }
 
-.box_wrapper .card_wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
+    /* SWIPER */
+
+    .slider_wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .slider_wrapper h3{
+        font-size: 32px;
+    }
 
 
-.card_wrapper .card{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-}
-
-.card_wrapper  .card img{
-    width: 300px;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    transition: 500ms ease;
-}
-
-.card_wrapper  .card:hover img{
-    background-color: #05090d8e;
-}
+        /* SCENE */
+        .scene-swiper {
+            width: 1000px;
+            height: 500px;
+            border-radius: 15px;
+            padding: 20px;
+        }
 
 
-
-/* SWIPER */
-
-.slider_wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.slider_wrapper h3{
-    font-size: 32px;
-}
+        .scene-slide img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
 
 
-.scene-swiper {
-    width: 1000px;
-    height: 500px;
-    border-radius: 15px;
-    padding: 20px;
-    border: 1px solid #fff;
-}
+        /* COVERFLOW */
 
-.swiper h3{
-    font-size: 32px;
-}
-
-.scene-slide img{
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-
-  .film-swiper {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-
-  .film-slide {
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 450px;
-  }
-
-  .film-slide img {
-    display: block;
-    width: 300px;
-    height: 450;
-  }
+        .coverflow-slide img {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+        }
 
 
 
@@ -297,6 +252,7 @@ nav ul li{
 
 .note i{
     margin-right: 5px;
+    font-size: 30px;
 }
 
 .note span{
@@ -432,7 +388,7 @@ nav ul li{
 /* Error / Success messages */
 
 .success_msg{
-    margin: 5px;
+    margin: 10px;
     padding: 10px 20px;
     background-color: #169e2d;
     border-radius: 15px;
@@ -441,7 +397,7 @@ nav ul li{
 }
 
 .error_msg{
-    margin: 5px;
+    margin: 10px;
     padding: 10px 20px;
     background-color: #9e1f16;
     border-radius: 15px;

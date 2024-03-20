@@ -200,9 +200,9 @@ class CinemaController
             $addGenre->execute();
             header("Location:index.php?action=listGenres");
 
-            $_SESSION['success_message'] = "<p class='success_msg'>Genre ajouté</p>";
-        } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Genre ajouté</p>";
+        } else {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/genres/addGenre.php";
     }
@@ -259,9 +259,9 @@ class CinemaController
             }
             header("Location:index.php?action=listRealisateurs");
 
-            $_SESSION['success_message'] = "<p class='success_msg'>Realisateur ajouté</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Realisateur ajouté</p>";
         } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/realisateurs/addRealisateur.php";
     }
@@ -317,9 +317,9 @@ class CinemaController
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
             header("Location:index.php?action=listActeurs");
-            $_SESSION['success_message'] = "<p class='success_msg'>Acteur ajouté</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Acteur ajouté</p>";
         } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/acteurs/addActeur.php";
     }
@@ -394,9 +394,9 @@ class CinemaController
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
             header("Location:index.php?action=listFilms");
-            $_SESSION['success_message'] = "<p class='success_msg'>Film ajouté</p>";
-        } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Film ajouté</p>";
+        } else {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/films/addFilm.php";
     }
@@ -410,9 +410,9 @@ class CinemaController
 
             $addRole = $pdo->prepare("INSERT INTO role (nomRole) VALUES (:nomRole)");
             $addRole->execute(["nomRole" => $nomRole]);
-            $_SESSION['success_message'] = "<p class='success_msg'>Role ajouté</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Role ajouté</p>";
         } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/casting/addRole.php";
     }
@@ -441,9 +441,9 @@ class CinemaController
                 ]);
             }
             header("Location:index.php?action=filmDetails&id={$id}");
-            $_SESSION['success_message'] = "<p class='success_msg'>Casting ajouté</p>";
+            $_SESSION['message'] = "<p class='success_msg'>Casting ajouté</p>";
         } elseif (!isset ($_POST['submit'])) {
-            $_SESSION['error_message'] = "<p class='error_msg'>Erreur</p>";
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
 
         require "view/casting/addCasting.php";
@@ -493,6 +493,17 @@ class CinemaController
             $synopsis = filter_var($_POST["synopsis"], FILTER_SANITIZE_SPECIAL_CHARS);
             $id_realisateur = filter_var($_POST["id_realisateur"], FILTER_SANITIZE_NUMBER_INT);
             $id_genres = isset ($_POST["id_genre"]) ? $_POST["id_genre"] : array();
+
+            $getFile = $pdo->prepare("SELECT affiche FROM film WHERE id_film = :id_film");
+            $getFile->execute(["id_film" => $id]);
+
+            $unsetFile = $getFile->fetch();
+
+            unlink("upload/film/affiche/$unsetFile[0]");
+
+            $deleteFile = $pdo->prepare("UPDATE film SET affiche = null WHERE id_film = :id_film");
+            $deleteFile->execute(["id_film" => $id]);
+
 
             $tmpName = $_FILES['file']['tmp_name'];
             $name = $_FILES['file']['name'];
@@ -547,10 +558,15 @@ class CinemaController
                         "id_genre" => $genre,
                     ]);
                 }
+                header("Location:index.php?action=filmDetails&id=$id");
+
             } else {
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
-            header("Location:index.php?action=filmDetails&id=$id");
+
+            $_SESSION['message'] = "<p class='success_msg'>Film modifié</p>";
+        } elseif (!isset ($_POST['submit'])) {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
 
         require "view/films/updateFilm.php";
@@ -612,6 +628,9 @@ class CinemaController
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
             header("Location:index.php?action=acteurDetails&id=$id");
+            $_SESSION['message'] = "<p class='success_msg'>Acteur modifié</p>";
+        } elseif (!isset ($_POST['submit'])) {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/acteurs/updateActeur.php";
 
@@ -673,6 +692,9 @@ class CinemaController
                 echo "Erreur lors du téléchargement du fichier. Assurez-vous que le fichier est une image de type JPG, PNG, JPEG ou GIF et ne dépasse pas la taille maximale autorisée.";
             }
             header("Location:index.php?action=realisateurDetails&id=$id");
+            $_SESSION['message'] = "<p class='success_msg'>Réalisateur modifié</p>";
+        } elseif (!isset ($_POST['submit'])) {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
         require "view/realisateurs/updateRealisateur.php";
 
@@ -699,6 +721,9 @@ class CinemaController
             ]);
 
             header("Location:index.php?action=genreDetails&id=$id");
+            $_SESSION['message'] = "<p class='success_msg'>Genre modifié</p>";
+        } elseif (!isset ($_POST['submit'])) {
+            $_SESSION['message'] = "<p class='error_msg'>Erreur</p>";
         }
 
         require "view/genres/updateGenre.php";

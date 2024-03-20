@@ -38,15 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const film_swiper = new Swiper(".film-swiper", {
+  const coverflow_swiper = new Swiper(".coverflow-swiper", {
     // Optional parameters
-    loop: true,
+    loop: false,
     effect: "coverflow",
-    grabCursor: false,
-    centeredSlides: false,
+    grabCursor: true,
+    centeredSlides: true,
     slidesPerView: 3,
+    initialSlide: 1,
     coverflowEffect: {
-      rotate: 50,
+      rotate: 20,
       stretch: 0,
       depth: 100,
       modifier: 1,

@@ -1,5 +1,20 @@
 <?php
 ob_start();
+
+// Afficher un message de succès s'il est défini
+if (isset ($_SESSION['message'])) {
+    echo $_SESSION['message'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['message']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['message'])) {
+    echo $_SESSION['message'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['message']);
+}
+
 ?>
 
 <a class="add_btn" href="index.php?action=addRealisateur">Ajouter</a>
