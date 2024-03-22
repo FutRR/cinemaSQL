@@ -516,6 +516,11 @@ i{
     background-color: #05090D;
     border-radius: 15px;
     width: fit-content;
+    transition: transform 500ms ease;
+}
+
+.fake_btn:hover{
+    transform: scale(1.1);
 }
 
 .copyright{
