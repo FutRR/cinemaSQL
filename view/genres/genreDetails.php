@@ -2,6 +2,21 @@
 ob_start();
 
 $genre = $genreDetails->fetch();
+
+// Afficher un message de succès s'il est défini
+if (isset ($_SESSION['updateGenre'])) {
+    echo $_SESSION['updateGenre'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateGenre']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['updateGenre'])) {
+    echo $_SESSION['updateGenre'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateGenre']);
+}
+
 ?>
 
 <div class="btns">

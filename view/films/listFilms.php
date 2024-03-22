@@ -2,17 +2,17 @@
 ob_start();
 
 // Afficher un message de succès s'il est défini
-if (isset ($_SESSION['message'])) {
-    echo $_SESSION['message'];
+if (isset ($_SESSION['addFilm'])) {
+    echo $_SESSION['addFilm'];
     // Supprimer le message de la session une fois affiché
-    unset($_SESSION['message']);
+    unset($_SESSION['addFilm']);
 }
 
 // Afficher un message d'erreur s'il est défini
-if (isset ($_SESSION['message'])) {
-    echo $_SESSION['message'];
+if (isset ($_SESSION['addFilm'])) {
+    echo $_SESSION['addFilm'];
     // Supprimer le message de la session une fois affiché
-    unset($_SESSION['message']);
+    unset($_SESSION['addFilm']);
 }
 
 ?>

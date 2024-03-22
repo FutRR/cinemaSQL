@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
 :root {
     --swiper-pagination-color: #fff;
     --swiper-navigation-color: #fff;
@@ -89,6 +87,8 @@ nav ul li{
     /* Burger Menu */
 
     .menuburger{
+        position: absolute;
+        right: 0;
         cursor: pointer;
         z-index: 99;
         margin: 16px;
@@ -291,6 +291,7 @@ nav ul li{
 .acteurs{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .acteur{
@@ -341,6 +342,7 @@ nav ul li{
     padding: 20px;
     width: fit-content;
     min-width: 185px;
+    text-align: center;
 
 }
 
@@ -524,10 +526,8 @@ i{
 
 /* Desktop */
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1039px){
     
-    /* NAVBAR */
-
     nav ul{
         margin-top: 16px;
     }
@@ -535,11 +535,16 @@ i{
     .menuburger{
         display: none;
     }
-    
 
+}
+
+@media only screen and (min-width: 769px) {
+    
+/* SVGs */
 
     .waves{
         width: 100vw;
+        overflow: hidden;
     }
 
 
@@ -547,25 +552,23 @@ i{
 
     /* SWIPER */
 
-    .slider_wrapper{
-    }
-
-
         /* SCENE */
-        .scene-swiper {
+
+        .scene-wrapper{
+            width: 80vw;
+            height: 40vh;
         }
 
         .scene-slide{
-            height: 40vh;
+            width: 100%;
+            height: 100%;
         }
 
 
         .scene-slide img{
             object-fit: cover;
+            width: 80vw;
+            height: 80vh;
         }
-
-
-        /* COVERFLOW */
-
 
 }

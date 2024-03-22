@@ -2,6 +2,36 @@
 ob_start();
 
 $film = $filmDetails->fetch();
+
+// Afficher un message de succès s'il est défini
+if (isset ($_SESSION['addCasting'])) {
+    echo $_SESSION['addCasting'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['addCasting']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['addCasting'])) {
+    echo $_SESSION['addCasting'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['addCasting']);
+}
+
+// Afficher un message de succès s'il est défini
+if (isset ($_SESSION['updateFilm'])) {
+    echo $_SESSION['updateFilm'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateFilm']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['updateFilm'])) {
+    echo $_SESSION['updateFilm'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateFilm']);
+}
+
+
 ?>
 
 <div class="btns">

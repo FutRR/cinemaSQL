@@ -35,25 +35,26 @@ ob_start();
             <div class="swiper-wrapper scene-wrapper">
                 <!-- Slides -->
                 <div class="swiper-slide scene-slide">
-                    <p>La Haine</p><img src="upload/film/scenes/scene-la-haine.jpg" alt="">
+                    <p>La Haine</p><img src="public/img/scenes/la-haine-2.jpg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Star Wars : Episode IV</p><img src="upload/film/scenes/scene-star-wars-4.jpg" alt="">
+                    <p>Star Wars : Episode IV</p><img
+                        src="public/img/scenes/fb_open-uri20150608-27674-hoqoq5-1496b98b.jpg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Kill Bill Vol.1</p><img src="upload/film/scenes/scene-kill-bill-1.jpg" alt="">
+                    <p>Kill Bill Vol.1</p><img src="public/img/scenes/kill-bill-vol-1_kd3dqe-1024x578.jpeg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Les Sept Samuraïs</p><img src="upload/film/scenes/sevensamurai.jpg" alt="">
+                    <p>Les Sept Samuraïs</p><img src="public/img/scenes/1l-3ac3821b547c.jpeg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Les Affranchis</p><img src="upload/film/scenes/affranchis-scene.jpg" alt="">
+                    <p>Les Affranchis</p><img src="public/img/scenes/affranchis-scene.jpg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Full Metal Jacker</p><img src="upload/film/scenes/scene-fmj.jpg" alt="">
+                    <p>Full Metal Jacker</p><img src="public/img/scenes/scene-fmj.jpg" alt="">
                 </div>
                 <div class="swiper-slide scene-slide">
-                    <p>Blade Runner 2049</p><img src="upload/film/scenes/blade-runner-2049-joi.jpg" alt="">
+                    <p>Blade Runner 2049</p><img src="public/img/scenes/blade-runner-2049-joi.jpg" alt="">
                 </div>
             </div>
 

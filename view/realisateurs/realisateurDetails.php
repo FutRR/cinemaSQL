@@ -2,6 +2,21 @@
 ob_start();
 
 $realisateur = $realisateurDetails->fetch();
+
+// Afficher un message de succès s'il est défini
+if (isset ($_SESSION['updateReal'])) {
+    echo $_SESSION['updateReal'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateReal']);
+}
+
+// Afficher un message d'erreur s'il est défini
+if (isset ($_SESSION['updateReal'])) {
+    echo $_SESSION['updateReal'];
+    // Supprimer le message de la session une fois affiché
+    unset($_SESSION['updateReal']);
+}
+
 ?>
 
 <div class="btns">
