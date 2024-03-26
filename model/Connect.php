@@ -5,7 +5,7 @@ namespace Model;
 abstract class Connect
 {
 
-    const HOST = "db";
+    const HOST = "localhost";
     const DB = "cinema_maximefutterer";
     const USER = "root";
     const PASS = "";
